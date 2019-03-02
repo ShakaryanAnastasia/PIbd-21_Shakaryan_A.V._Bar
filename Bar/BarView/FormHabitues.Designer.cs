@@ -34,9 +34,9 @@
             this.buttonDel = new System.Windows.Forms.Button();
             this.buttonRef = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.habitueViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.habitueFIODataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.habitueViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.habitueViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -95,11 +95,17 @@
             this.dataGridView.Size = new System.Drawing.Size(433, 415);
             this.dataGridView.TabIndex = 5;
             // 
+            // habitueViewModelBindingSource
+            // 
+            this.habitueViewModelBindingSource.DataSource = typeof(BarServiceDAL.ViewModels.HabitueViewModel);
+            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.idDataGridViewTextBoxColumn.Visible = false;
             // 
             // habitueFIODataGridViewTextBoxColumn
@@ -108,10 +114,8 @@
             this.habitueFIODataGridViewTextBoxColumn.DataPropertyName = "HabitueFIO";
             this.habitueFIODataGridViewTextBoxColumn.HeaderText = "HabitueFIO";
             this.habitueFIODataGridViewTextBoxColumn.Name = "habitueFIODataGridViewTextBoxColumn";
-            // 
-            // habitueViewModelBindingSource
-            // 
-            this.habitueViewModelBindingSource.DataSource = typeof(BarServiceDAL.ViewModels.HabitueViewModel);
+            this.habitueFIODataGridViewTextBoxColumn.ReadOnly = true;
+            this.habitueFIODataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // FormHabitues
             // 
@@ -139,8 +143,8 @@
         private System.Windows.Forms.Button buttonDel;
         private System.Windows.Forms.Button buttonRef;
         private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.BindingSource habitueViewModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn habitueFIODataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource habitueViewModelBindingSource;
     }
 }

@@ -35,6 +35,12 @@
             this.ингредиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.коктейльToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.bookingViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonCreateBooking = new System.Windows.Forms.Button();
+            this.buttonTakeBookingInWork = new System.Windows.Forms.Button();
+            this.buttonBookingReady = new System.Windows.Forms.Button();
+            this.buttonPayBooking = new System.Windows.Forms.Button();
+            this.buttonRef = new System.Windows.Forms.Button();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.habitueIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.habitueFIODataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,12 +51,6 @@
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateCreateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateImplementDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bookingViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.buttonCreateBooking = new System.Windows.Forms.Button();
-            this.buttonTakeBookingInWork = new System.Windows.Forms.Button();
-            this.buttonBookingReady = new System.Windows.Forms.Button();
-            this.buttonPayBooking = new System.Windows.Forms.Button();
-            this.buttonRef = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingViewModelBindingSource)).BeginInit();
@@ -120,77 +120,6 @@
             this.dataGridView.Size = new System.Drawing.Size(664, 313);
             this.dataGridView.TabIndex = 1;
             // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // habitueIdDataGridViewTextBoxColumn
-            // 
-            this.habitueIdDataGridViewTextBoxColumn.DataPropertyName = "HabitueId";
-            this.habitueIdDataGridViewTextBoxColumn.HeaderText = "HabitueId";
-            this.habitueIdDataGridViewTextBoxColumn.Name = "habitueIdDataGridViewTextBoxColumn";
-            this.habitueIdDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // habitueFIODataGridViewTextBoxColumn
-            // 
-            this.habitueFIODataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.habitueFIODataGridViewTextBoxColumn.DataPropertyName = "HabitueFIO";
-            this.habitueFIODataGridViewTextBoxColumn.HeaderText = "HabitueFIO";
-            this.habitueFIODataGridViewTextBoxColumn.Name = "habitueFIODataGridViewTextBoxColumn";
-            // 
-            // cocktailIdDataGridViewTextBoxColumn
-            // 
-            this.cocktailIdDataGridViewTextBoxColumn.DataPropertyName = "CocktailId";
-            this.cocktailIdDataGridViewTextBoxColumn.HeaderText = "CocktailId";
-            this.cocktailIdDataGridViewTextBoxColumn.Name = "cocktailIdDataGridViewTextBoxColumn";
-            this.cocktailIdDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // cocktailNameDataGridViewTextBoxColumn
-            // 
-            this.cocktailNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cocktailNameDataGridViewTextBoxColumn.DataPropertyName = "CocktailName";
-            this.cocktailNameDataGridViewTextBoxColumn.HeaderText = "CocktailName";
-            this.cocktailNameDataGridViewTextBoxColumn.Name = "cocktailNameDataGridViewTextBoxColumn";
-            // 
-            // countDataGridViewTextBoxColumn
-            // 
-            this.countDataGridViewTextBoxColumn.DataPropertyName = "Count";
-            this.countDataGridViewTextBoxColumn.HeaderText = "Count";
-            this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
-            this.countDataGridViewTextBoxColumn.Visible = false;
-            this.countDataGridViewTextBoxColumn.Width = 76;
-            // 
-            // sumDataGridViewTextBoxColumn
-            // 
-            this.sumDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.sumDataGridViewTextBoxColumn.DataPropertyName = "Sum";
-            this.sumDataGridViewTextBoxColumn.HeaderText = "Sum";
-            this.sumDataGridViewTextBoxColumn.Name = "sumDataGridViewTextBoxColumn";
-            // 
-            // statusDataGridViewTextBoxColumn
-            // 
-            this.statusDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
-            this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
-            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
-            // 
-            // dateCreateDataGridViewTextBoxColumn
-            // 
-            this.dateCreateDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dateCreateDataGridViewTextBoxColumn.DataPropertyName = "DateCreate";
-            this.dateCreateDataGridViewTextBoxColumn.HeaderText = "DateCreate";
-            this.dateCreateDataGridViewTextBoxColumn.Name = "dateCreateDataGridViewTextBoxColumn";
-            // 
-            // dateImplementDataGridViewTextBoxColumn
-            // 
-            this.dateImplementDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dateImplementDataGridViewTextBoxColumn.DataPropertyName = "DateImplement";
-            this.dateImplementDataGridViewTextBoxColumn.HeaderText = "DateImplement";
-            this.dateImplementDataGridViewTextBoxColumn.Name = "dateImplementDataGridViewTextBoxColumn";
-            // 
             // bookingViewModelBindingSource
             // 
             this.bookingViewModelBindingSource.DataSource = typeof(BarServiceDAL.ViewModels.BookingViewModel);
@@ -245,6 +174,97 @@
             this.buttonRef.UseVisualStyleBackColor = true;
             this.buttonRef.Click += new System.EventHandler(this.buttonRef_Click);
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.idDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // habitueIdDataGridViewTextBoxColumn
+            // 
+            this.habitueIdDataGridViewTextBoxColumn.DataPropertyName = "HabitueId";
+            this.habitueIdDataGridViewTextBoxColumn.HeaderText = "HabitueId";
+            this.habitueIdDataGridViewTextBoxColumn.Name = "habitueIdDataGridViewTextBoxColumn";
+            this.habitueIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.habitueIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.habitueIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // habitueFIODataGridViewTextBoxColumn
+            // 
+            this.habitueFIODataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.habitueFIODataGridViewTextBoxColumn.DataPropertyName = "HabitueFIO";
+            this.habitueFIODataGridViewTextBoxColumn.HeaderText = "HabitueFIO";
+            this.habitueFIODataGridViewTextBoxColumn.Name = "habitueFIODataGridViewTextBoxColumn";
+            this.habitueFIODataGridViewTextBoxColumn.ReadOnly = true;
+            this.habitueFIODataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // cocktailIdDataGridViewTextBoxColumn
+            // 
+            this.cocktailIdDataGridViewTextBoxColumn.DataPropertyName = "CocktailId";
+            this.cocktailIdDataGridViewTextBoxColumn.HeaderText = "CocktailId";
+            this.cocktailIdDataGridViewTextBoxColumn.Name = "cocktailIdDataGridViewTextBoxColumn";
+            this.cocktailIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cocktailIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.cocktailIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // cocktailNameDataGridViewTextBoxColumn
+            // 
+            this.cocktailNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cocktailNameDataGridViewTextBoxColumn.DataPropertyName = "CocktailName";
+            this.cocktailNameDataGridViewTextBoxColumn.HeaderText = "CocktailName";
+            this.cocktailNameDataGridViewTextBoxColumn.Name = "cocktailNameDataGridViewTextBoxColumn";
+            this.cocktailNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cocktailNameDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // countDataGridViewTextBoxColumn
+            // 
+            this.countDataGridViewTextBoxColumn.DataPropertyName = "Count";
+            this.countDataGridViewTextBoxColumn.HeaderText = "Count";
+            this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
+            this.countDataGridViewTextBoxColumn.ReadOnly = true;
+            this.countDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.countDataGridViewTextBoxColumn.Visible = false;
+            this.countDataGridViewTextBoxColumn.Width = 76;
+            // 
+            // sumDataGridViewTextBoxColumn
+            // 
+            this.sumDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.sumDataGridViewTextBoxColumn.DataPropertyName = "Sum";
+            this.sumDataGridViewTextBoxColumn.HeaderText = "Sum";
+            this.sumDataGridViewTextBoxColumn.Name = "sumDataGridViewTextBoxColumn";
+            this.sumDataGridViewTextBoxColumn.ReadOnly = true;
+            this.sumDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // statusDataGridViewTextBoxColumn
+            // 
+            this.statusDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
+            this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
+            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
+            this.statusDataGridViewTextBoxColumn.ReadOnly = true;
+            this.statusDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // dateCreateDataGridViewTextBoxColumn
+            // 
+            this.dateCreateDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dateCreateDataGridViewTextBoxColumn.DataPropertyName = "DateCreate";
+            this.dateCreateDataGridViewTextBoxColumn.HeaderText = "DateCreate";
+            this.dateCreateDataGridViewTextBoxColumn.Name = "dateCreateDataGridViewTextBoxColumn";
+            this.dateCreateDataGridViewTextBoxColumn.ReadOnly = true;
+            this.dateCreateDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // dateImplementDataGridViewTextBoxColumn
+            // 
+            this.dateImplementDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dateImplementDataGridViewTextBoxColumn.DataPropertyName = "DateImplement";
+            this.dateImplementDataGridViewTextBoxColumn.HeaderText = "DateImplement";
+            this.dateImplementDataGridViewTextBoxColumn.Name = "dateImplementDataGridViewTextBoxColumn";
+            this.dateImplementDataGridViewTextBoxColumn.ReadOnly = true;
+            this.dateImplementDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -282,6 +302,7 @@
         private System.Windows.Forms.Button buttonBookingReady;
         private System.Windows.Forms.Button buttonPayBooking;
         private System.Windows.Forms.Button buttonRef;
+        private System.Windows.Forms.BindingSource bookingViewModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn habitueIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn habitueFIODataGridViewTextBoxColumn;
@@ -292,7 +313,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateCreateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateImplementDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource bookingViewModelBindingSource;
     }
 }
 

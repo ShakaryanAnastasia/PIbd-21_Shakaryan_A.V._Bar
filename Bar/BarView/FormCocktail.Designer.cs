@@ -35,11 +35,6 @@
             this.buttonUpd = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cocktailIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ingredientIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ingredientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.countDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cocktailIngredientViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -47,6 +42,11 @@
             this.labelPrice = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cocktailIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ingredientIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ingredientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.countDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cocktailIngredientViewModelBindingSource)).BeginInit();
@@ -123,41 +123,6 @@
             this.dataGridView.Size = new System.Drawing.Size(375, 243);
             this.dataGridView.TabIndex = 0;
             // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // cocktailIdDataGridViewTextBoxColumn
-            // 
-            this.cocktailIdDataGridViewTextBoxColumn.DataPropertyName = "CocktailId";
-            this.cocktailIdDataGridViewTextBoxColumn.HeaderText = "CocktailId";
-            this.cocktailIdDataGridViewTextBoxColumn.Name = "cocktailIdDataGridViewTextBoxColumn";
-            this.cocktailIdDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // ingredientIdDataGridViewTextBoxColumn
-            // 
-            this.ingredientIdDataGridViewTextBoxColumn.DataPropertyName = "IngredientId";
-            this.ingredientIdDataGridViewTextBoxColumn.HeaderText = "IngredientId";
-            this.ingredientIdDataGridViewTextBoxColumn.Name = "ingredientIdDataGridViewTextBoxColumn";
-            this.ingredientIdDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // ingredientNameDataGridViewTextBoxColumn
-            // 
-            this.ingredientNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ingredientNameDataGridViewTextBoxColumn.DataPropertyName = "IngredientName";
-            this.ingredientNameDataGridViewTextBoxColumn.HeaderText = "IngredientName";
-            this.ingredientNameDataGridViewTextBoxColumn.Name = "ingredientNameDataGridViewTextBoxColumn";
-            // 
-            // countDataGridViewTextBoxColumn
-            // 
-            this.countDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.countDataGridViewTextBoxColumn.DataPropertyName = "Count";
-            this.countDataGridViewTextBoxColumn.HeaderText = "Count";
-            this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
-            // 
             // cocktailIngredientViewModelBindingSource
             // 
             this.cocktailIngredientViewModelBindingSource.DataSource = typeof(BarServiceDAL.ViewModels.CocktailIngredientViewModel);
@@ -214,6 +179,51 @@
             this.labelName.TabIndex = 7;
             this.labelName.Text = "Название:";
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.idDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // cocktailIdDataGridViewTextBoxColumn
+            // 
+            this.cocktailIdDataGridViewTextBoxColumn.DataPropertyName = "CocktailId";
+            this.cocktailIdDataGridViewTextBoxColumn.HeaderText = "CocktailId";
+            this.cocktailIdDataGridViewTextBoxColumn.Name = "cocktailIdDataGridViewTextBoxColumn";
+            this.cocktailIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cocktailIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.cocktailIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // ingredientIdDataGridViewTextBoxColumn
+            // 
+            this.ingredientIdDataGridViewTextBoxColumn.DataPropertyName = "IngredientId";
+            this.ingredientIdDataGridViewTextBoxColumn.HeaderText = "IngredientId";
+            this.ingredientIdDataGridViewTextBoxColumn.Name = "ingredientIdDataGridViewTextBoxColumn";
+            this.ingredientIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.ingredientIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ingredientIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // ingredientNameDataGridViewTextBoxColumn
+            // 
+            this.ingredientNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ingredientNameDataGridViewTextBoxColumn.DataPropertyName = "IngredientName";
+            this.ingredientNameDataGridViewTextBoxColumn.HeaderText = "IngredientName";
+            this.ingredientNameDataGridViewTextBoxColumn.Name = "ingredientNameDataGridViewTextBoxColumn";
+            this.ingredientNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.ingredientNameDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // countDataGridViewTextBoxColumn
+            // 
+            this.countDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.countDataGridViewTextBoxColumn.DataPropertyName = "Count";
+            this.countDataGridViewTextBoxColumn.HeaderText = "Count";
+            this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
+            this.countDataGridViewTextBoxColumn.ReadOnly = true;
+            this.countDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
             // FormCocktail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -251,11 +261,11 @@
         private System.Windows.Forms.Label labelPrice;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.BindingSource cocktailIngredientViewModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn cocktailIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ingredientIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ingredientNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn countDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource cocktailIngredientViewModelBindingSource;
     }
 }

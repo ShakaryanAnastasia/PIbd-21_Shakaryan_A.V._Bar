@@ -80,7 +80,7 @@
             this.Controls.Add(this.textBoxFIO);
             this.Controls.Add(this.labelFIO);
             this.Name = "FormHabitue";
-            this.Text = "FormHabitue";
+            this.Text = "Завсегдатай";
             this.Load += new System.EventHandler(this.FormHabitue_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
