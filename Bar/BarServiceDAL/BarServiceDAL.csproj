@@ -46,7 +46,6 @@
     <Compile Include="BindingModels\IngredientBindingModel.cs" />
     <Compile Include="BindingModels\BookingBindingModel.cs" />
     <Compile Include="Interfaces\IHabitueService.cs" />
-    <Compile Include="Interfaces\ICocktailIngredientService.cs" />
     <Compile Include="Interfaces\ICocktailService.cs" />
     <Compile Include="Interfaces\IIngredientService.cs" />
     <Compile Include="Interfaces\IMainService.cs" />
