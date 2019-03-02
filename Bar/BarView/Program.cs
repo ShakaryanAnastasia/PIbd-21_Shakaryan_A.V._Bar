@@ -34,6 +34,9 @@ namespace BarView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IMainService, MainServiceList>(new
             HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IPantryService, PantryServiceList>(new
+            HierarchicalLifetimeManager());
+
             return currentContainer;
         }
     }

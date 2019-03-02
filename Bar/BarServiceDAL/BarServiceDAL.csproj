@@ -45,17 +45,21 @@
     <Compile Include="BindingModels\CocktailIngredientBindingModel.cs" />
     <Compile Include="BindingModels\IngredientBindingModel.cs" />
     <Compile Include="BindingModels\BookingBindingModel.cs" />
+    <Compile Include="BindingModels\PantryBindingModel.cs" />
+    <Compile Include="BindingModels\PantryIngredientBindingModel.cs" />
     <Compile Include="Interfaces\IHabitueService.cs" />
-    <Compile Include="Interfaces\ICocktailIngredientService.cs" />
     <Compile Include="Interfaces\ICocktailService.cs" />
     <Compile Include="Interfaces\IIngredientService.cs" />
     <Compile Include="Interfaces\IMainService.cs" />
+    <Compile Include="Interfaces\IPantryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\HabitueViewModel.cs" />
     <Compile Include="ViewModels\CocktailIngredientViewModel.cs" />
     <Compile Include="ViewModels\CocktailViewModel.cs" />
     <Compile Include="ViewModels\IngredientViewModel.cs" />
     <Compile Include="ViewModels\BookingViewModel.cs" />
+    <Compile Include="ViewModels\PantryIngredientViewModel.cs" />
+    <Compile Include="ViewModels\PantryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarModel\BarModel.csproj">

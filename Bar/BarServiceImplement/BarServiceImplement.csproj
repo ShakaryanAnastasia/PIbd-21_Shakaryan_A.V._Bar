@@ -42,10 +42,10 @@
   <ItemGroup>
     <Compile Include="DataListSingleton.cs" />
     <Compile Include="Implementations\HabitueServiceList.cs" />
-    <Compile Include="Implementations\CocktailIngredientServiceList.cs" />
     <Compile Include="Implementations\CocktailServiceList.cs" />
     <Compile Include="Implementations\IngredientServiceList.cs" />
     <Compile Include="Implementations\MainServiceList.cs" />
+    <Compile Include="Implementations\PantryServiceList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
