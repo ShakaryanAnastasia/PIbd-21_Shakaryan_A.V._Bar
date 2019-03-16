@@ -19,5 +19,7 @@ namespace BarServiceDAL.Interfaces
         void FinishBooking(BookingBindingModel model);
 
         void PayBooking(BookingBindingModel model);
+
+        void PutIngredientOnPantry(PantryIngredientBindingModel model);
     }
 }

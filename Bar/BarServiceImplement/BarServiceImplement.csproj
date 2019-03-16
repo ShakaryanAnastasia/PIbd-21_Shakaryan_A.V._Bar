@@ -45,6 +45,7 @@
     <Compile Include="Implementations\CocktailServiceList.cs" />
     <Compile Include="Implementations\IngredientServiceList.cs" />
     <Compile Include="Implementations\MainServiceList.cs" />
+    <Compile Include="Implementations\PantryServiceList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
