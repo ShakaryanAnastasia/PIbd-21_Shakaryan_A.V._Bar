@@ -110,7 +110,7 @@ namespace BarView
                     HabitueId = Convert.ToInt32(comboBoxHabitue.SelectedValue),
                     CocktailId = Convert.ToInt32(comboBoxCocktail.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
-                    Sum = Convert.ToInt32(textBoxSum.Text)
+                    Sum = Convert.ToDecimal(textBoxSum.Text)
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
