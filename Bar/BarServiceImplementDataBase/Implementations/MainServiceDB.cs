@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Data.Entity.SqlServer;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BarServiceImplementDataBase.Implementations
 {
@@ -60,8 +58,8 @@ namespace BarServiceImplementDataBase.Implementations
         }
         public void TakeBookingInWork(BookingBindingModel model)
         {
-            
-        using (var transaction = context.Database.BeginTransaction())
+
+            using (var transaction = context.Database.BeginTransaction())
             {
                 try
                 {
@@ -84,7 +82,7 @@ namespace BarServiceImplementDataBase.Implementations
                         rec.IngredientId == CocktailIngredient.IngredientId);
                         foreach (var PantryIngredient in PantryIngredients)
                         {
-                            // компонентов на одном слкаде может не хватать
+                            // ингредиентов на одном слкаде может не хватать
                             if (PantryIngredient.Count >= countOnPantrys)
                             {
                                 PantryIngredient.Count -= countOnPantrys;
@@ -121,13 +119,13 @@ namespace BarServiceImplementDataBase.Implementations
         {
             Booking element = context.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
             if (element == null)
-               
-        {
+
+            {
                 throw new Exception("Элемент не найден");
             }
             if (element.Status != BookingStatus.Смешивается)
             {
-                throw new Exception("Заказ не в статусе \"Выполняется\"");
+                throw new Exception("Заказ не в статусе \"Смешивается\"");
             }
             element.Status = BookingStatus.Смешан;
             context.SaveChanges();
@@ -141,7 +139,7 @@ namespace BarServiceImplementDataBase.Implementations
             }
             if (element.Status != BookingStatus.Смешан)
             {
-                throw new Exception("Заказ не в статусе \"Готов\"");
+                throw new Exception("Заказ не в статусе \"Смешан\"");
             }
             element.Status = BookingStatus.Оплачен;
             context.SaveChanges();
