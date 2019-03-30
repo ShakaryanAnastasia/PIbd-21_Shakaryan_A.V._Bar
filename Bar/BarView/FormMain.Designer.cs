@@ -35,6 +35,11 @@
             this.ингредиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.коктейльToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.кладовыеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пополнитьКладовуюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.прайсКоктейлейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загруженностьСкладовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.заказыЗавсегдатаевToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.habitueIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,7 +57,6 @@
             this.buttonBookingReady = new System.Windows.Forms.Button();
             this.buttonPayBooking = new System.Windows.Forms.Button();
             this.buttonRef = new System.Windows.Forms.Button();
-            this.пополнитьКладовуюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingViewModelBindingSource)).BeginInit();
@@ -63,7 +67,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.справочникиToolStripMenuItem,
-            this.пополнитьКладовуюToolStripMenuItem});
+            this.пополнитьКладовуюToolStripMenuItem,
+            this.отчетыToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(905, 28);
@@ -84,30 +89,68 @@
             // завсегдатаиToolStripMenuItem
             // 
             this.завсегдатаиToolStripMenuItem.Name = "завсегдатаиToolStripMenuItem";
-            this.завсегдатаиToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.завсегдатаиToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
             this.завсегдатаиToolStripMenuItem.Text = "Завсегдатаи";
             this.завсегдатаиToolStripMenuItem.Click += new System.EventHandler(this.завсегдатаиToolStripMenuItem_Click);
             // 
             // ингредиентыToolStripMenuItem
             // 
             this.ингредиентыToolStripMenuItem.Name = "ингредиентыToolStripMenuItem";
-            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
             this.ингредиентыToolStripMenuItem.Text = "Ингредиенты";
             this.ингредиентыToolStripMenuItem.Click += new System.EventHandler(this.ингредиентыToolStripMenuItem_Click);
             // 
             // коктейльToolStripMenuItem
             // 
             this.коктейльToolStripMenuItem.Name = "коктейльToolStripMenuItem";
-            this.коктейльToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.коктейльToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
             this.коктейльToolStripMenuItem.Text = "Коктейль";
             this.коктейльToolStripMenuItem.Click += new System.EventHandler(this.коктейлиToolStripMenuItem_Click);
             // 
             // кладовыеToolStripMenuItem
             // 
             this.кладовыеToolStripMenuItem.Name = "кладовыеToolStripMenuItem";
-            this.кладовыеToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.кладовыеToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
             this.кладовыеToolStripMenuItem.Text = "Кладовые";
             this.кладовыеToolStripMenuItem.Click += new System.EventHandler(this.кладовыеToolStripMenuItem_Click);
+            // 
+            // пополнитьКладовуюToolStripMenuItem
+            // 
+            this.пополнитьКладовуюToolStripMenuItem.Name = "пополнитьКладовуюToolStripMenuItem";
+            this.пополнитьКладовуюToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
+            this.пополнитьКладовуюToolStripMenuItem.Text = "Пополнить кладовую";
+            this.пополнитьКладовуюToolStripMenuItem.Click += new System.EventHandler(this.пополнитьКладовуюToolStripMenuItem_Click);
+            // 
+            // отчетыToolStripMenuItem
+            // 
+            this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.прайсКоктейлейToolStripMenuItem,
+            this.загруженностьСкладовToolStripMenuItem,
+            this.заказыЗавсегдатаевToolStripMenuItem});
+            this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
+            this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.отчетыToolStripMenuItem.Text = "Отчеты";
+            // 
+            // прайсКоктейлейToolStripMenuItem
+            // 
+            this.прайсКоктейлейToolStripMenuItem.Name = "прайсКоктейлейToolStripMenuItem";
+            this.прайсКоктейлейToolStripMenuItem.Size = new System.Drawing.Size(259, 26);
+            this.прайсКоктейлейToolStripMenuItem.Text = "Прайс коктейлей";
+            this.прайсКоктейлейToolStripMenuItem.Click += new System.EventHandler(this.прайсКоктейлейToolStripMenuItem_Click);
+            // 
+            // загруженностьСкладовToolStripMenuItem
+            // 
+            this.загруженностьСкладовToolStripMenuItem.Name = "загруженностьСкладовToolStripMenuItem";
+            this.загруженностьСкладовToolStripMenuItem.Size = new System.Drawing.Size(259, 26);
+            this.загруженностьСкладовToolStripMenuItem.Text = "Загруженность кладовых";
+            this.загруженностьСкладовToolStripMenuItem.Click += new System.EventHandler(this.загруженностьКладовыхToolStripMenuItem_Click);
+            // 
+            // заказыЗавсегдатаевToolStripMenuItem
+            // 
+            this.заказыЗавсегдатаевToolStripMenuItem.Name = "заказыЗавсегдатаевToolStripMenuItem";
+            this.заказыЗавсегдатаевToolStripMenuItem.Size = new System.Drawing.Size(259, 26);
+            this.заказыЗавсегдатаевToolStripMenuItem.Text = "Заказы завсегдатаев";
+            this.заказыЗавсегдатаевToolStripMenuItem.Click += new System.EventHandler(this.заказыЗавсегдатаевToolStripMenuItem_Click);
             // 
             // dataGridView
             // 
@@ -276,13 +319,6 @@
             this.buttonRef.UseVisualStyleBackColor = true;
             this.buttonRef.Click += new System.EventHandler(this.buttonRef_Click);
             // 
-            // пополнитьКладовуюToolStripMenuItem
-            // 
-            this.пополнитьКладовуюToolStripMenuItem.Name = "пополнитьКладовуюToolStripMenuItem";
-            this.пополнитьКладовуюToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
-            this.пополнитьКладовуюToolStripMenuItem.Text = "Пополнить кладовую";
-            this.пополнитьКладовуюToolStripMenuItem.Click += new System.EventHandler(this.пополнитьКладовуюToolStripMenuItem_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -333,6 +369,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dateImplementDataGridViewTextBoxColumn;
         private System.Windows.Forms.ToolStripMenuItem кладовыеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem пополнитьКладовуюToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отчетыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem прайсКоктейлейToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загруженностьСкладовToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem заказыЗавсегдатаевToolStripMenuItem;
     }
 }
 

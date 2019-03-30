@@ -69,7 +69,7 @@ namespace BarServiceImplementDataBase.Implementations
             model.PantryName);
             if (ingredient != null)
             {
-                throw new Exception("Уже есть склад с таким названием");
+                throw new Exception("Уже есть кладовая с таким названием");
             }
             context.Pantrys.Add(new Pantry
             {
@@ -83,7 +83,7 @@ namespace BarServiceImplementDataBase.Implementations
             model.PantryName && rec.Id != model.Id);
             if (ingredient != null)
             {
-                throw new Exception("Уже есть склад с таким названием");
+                throw new Exception("Уже есть кладовая с таким названием");
             }
             ingredient = context.Pantrys.FirstOrDefault(rec => rec.Id == model.Id);
             if (ingredient == null)
