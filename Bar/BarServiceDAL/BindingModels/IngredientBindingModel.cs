@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace BarServiceDAL.BindingModels
 {
-   public class IngredientBindingModel
+    [DataContract]
+    public class IngredientBindingModel
     {
+        [DataMember]
         public int Id { get; set; }
-
+        [DataMember]
         public string IngredientName { get; set; }
     }
 }

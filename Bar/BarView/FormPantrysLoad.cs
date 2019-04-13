@@ -1,5 +1,6 @@
 ﻿using BarServiceDAL.BindingModels;
 using BarServiceDAL.Interfaces;
+using BarServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,25 +10,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+
 
 namespace BarView
 {
     public partial class FormPantrysLoad : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-        private readonly IRecordService service;
-        public FormPantrysLoad(IRecordService service)
+        public FormPantrysLoad()
         {
             InitializeComponent();
-            this.service = service;
         }
         private void FormStocksLoad_Load(object sender, EventArgs e)
         {
             try
             {
-                var dict = service.GetPantrysLoad();
+                var dict = APIHabitue.GetRequest<List<PantrysLoadViewModel>>("api/Record/GetPantrysLoad");
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
@@ -36,11 +33,9 @@ namespace BarView
                         dataGridView.Rows.Add(new object[] { elem.PantryName, "", "" });
                         foreach (var listElem in elem.Ingredients)
                         {
-                            dataGridView.Rows.Add(new object[] { "", listElem.Item1,
-listElem.Item2 });
+                            dataGridView.Rows.Add(new object[] { "", listElem.Item1, listElem.Item2 });
                         }
-                        dataGridView.Rows.Add(new object[] { "Итого", "", elem.TotalCount
-});
+                        dataGridView.Rows.Add(new object[] { "Итого", "", elem.TotalCount });
                         dataGridView.Rows.Add(new object[] { });
                     }
                 }
@@ -61,7 +56,8 @@ listElem.Item2 });
             {
                 try
                 {
-                    service.SavePantrysLoad(new RecordBindingModel
+                    APIHabitue.PostRequest<RecordBindingModel,
+                    bool>("api/Record/SavePantrysLoad", new RecordBindingModel
                     {
                         FileName = sfd.FileName
                     });

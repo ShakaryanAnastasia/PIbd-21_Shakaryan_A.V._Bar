@@ -1,23 +1,19 @@
 ﻿using BarServiceDAL.BindingModels;
+using BarServiceDAL.ViewModels;
 using BarServiceDAL.Interfaces;
 using Microsoft.Reporting.WinForms;
 using System;
 using System.Windows.Forms;
-using Unity;
+using System.Collections.Generic;
 
 
 namespace BarView
 {
     public partial class FormHabitueBookings : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
-        private readonly IRecordService service;
-        public FormHabitueBookings(IRecordService service)
+        public FormHabitueBookings()
         {
             InitializeComponent();
-            this.service = service;
         }
         private void buttonMake_Click(object sender, EventArgs e)
         {
@@ -33,13 +29,14 @@ namespace BarView
                     "c " + dateTimePickerFrom.Value.ToShortDateString() +
                     " по " + dateTimePickerTo.Value.ToShortDateString());
                 recordViewer.LocalReport.SetParameters(parameter);
-                var dataSource = service.GetHabitueBookings(new RecordBindingModel
+                List<HabitueBookingsModel> response = APIHabitue.PostRequest<RecordBindingModel,
+                List<HabitueBookingsModel>>("api/Record/GetHabitueBookings", new RecordBindingModel
                 {
                     DateFrom = dateTimePickerFrom.Value,
                     DateTo = dateTimePickerTo.Value
                 });
                 ReportDataSource source = new ReportDataSource("DataSetBookings",
-                dataSource);
+                response);
                 recordViewer.LocalReport.DataSources.Add(source);
                 recordViewer.RefreshReport();
             }
@@ -55,7 +52,6 @@ namespace BarView
             {
                 MessageBox.Show("Дата начала должна быть меньше даты окончания",
                 "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                 return;
             }
             SaveFileDialog sfd = new SaveFileDialog
@@ -66,7 +62,8 @@ namespace BarView
             {
                 try
                 {
-                    service.SaveHabitueBookings(new RecordBindingModel
+                    APIHabitue.PostRequest<RecordBindingModel,
+                    bool>("api/Record/SaveHabitueBookings", new RecordBindingModel
                     {
                         FileName = sfd.FileName,
                         DateFrom = dateTimePickerFrom.Value,
