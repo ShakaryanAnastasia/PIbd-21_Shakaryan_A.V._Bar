@@ -10,21 +10,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+
 
 namespace BarView
 {
     public partial class FormPantry : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
         public int Id { set { id = value; } }
-        private readonly IPantryService service;
+
         private int? id;
-        public FormPantry(IPantryService service)
+        public FormPantry()
         {
             InitializeComponent();
-            this.service = service;
         }
         private void FormPantry_Load(object sender, EventArgs e)
         {
@@ -32,10 +29,10 @@ namespace BarView
             {
                 try
                 {
-                    PantryViewModel view = service.GetElement(id.Value);
+                    PantryViewModel view = APIHabitue.GetRequest<PantryViewModel>("api/Pantry/Get/" + id.Value);
                     if (view != null)
-                    {                      
-                    textBoxName.Text = view.PantryName;
+                    {
+                        textBoxName.Text = view.PantryName;
                         dataGridView.DataSource = view.PantryIngredients;
                         dataGridView.Columns[0].Visible = false;
                         dataGridView.Columns[1].Visible = false;
@@ -63,7 +60,8 @@ namespace BarView
             {
                 if (id.HasValue)
                 {
-                    service.UpdElement(new PantryBindingModel
+                    APIHabitue.PostRequest<PantryBindingModel,
+                    bool>("api/Pantry/UpdElement", new PantryBindingModel
                     {
                         Id = id.Value,
                         PantryName = textBoxName.Text
@@ -71,10 +69,11 @@ namespace BarView
                 }
                 else
                 {
-                    service.AddElement(new PantryBindingModel
-                    {
-                        PantryName = textBoxName.Text
-                    });
+                    APIHabitue.PostRequest<PantryBindingModel,
+                   bool>("api/Pantry/AddElement", new PantryBindingModel
+                   {
+                       PantryName = textBoxName.Text
+                   });
                 }
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);

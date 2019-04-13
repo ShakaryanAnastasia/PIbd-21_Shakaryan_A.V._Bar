@@ -10,30 +10,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
 
 namespace BarView
 {
     public partial class FormCreateBooking : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-        private readonly IHabitueService serviceC;
-        private readonly ICocktailService serviceP;
-        private readonly IMainService serviceM;
-        public FormCreateBooking(IHabitueService serviceC, ICocktailService serviceP,
-        IMainService serviceM)
+        public FormCreateBooking()
         {
             InitializeComponent();
-            this.serviceC = serviceC;
-            this.serviceP = serviceP;
-            this.serviceM = serviceM;
         }
         private void FormCreateBooking_Load(object sender, EventArgs e)
         {
             try
             {
-                List<HabitueViewModel> listC = serviceC.GetList();
+                List<HabitueViewModel> listC = APIHabitue.GetRequest<List<HabitueViewModel>>("api/Habitue/GetList");
                 if (listC != null)
                 {
                     comboBoxHabitue.DisplayMember = "HabitueFIO";
@@ -41,7 +31,7 @@ namespace BarView
                     comboBoxHabitue.DataSource = listC;
                     comboBoxHabitue.SelectedItem = null;
                 }
-                List<CocktailViewModel> listP = serviceP.GetList();
+                List<CocktailViewModel> listP = APIHabitue.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList");
                 if (listP != null)
                 {
                     comboBoxCocktail.DisplayMember = "CocktailName";
@@ -64,7 +54,7 @@ namespace BarView
                 try
                 {
                     int id = Convert.ToInt32(comboBoxCocktail.SelectedValue);
-                    CocktailViewModel Cocktail = serviceP.GetElement(id);
+                    CocktailViewModel Cocktail = APIHabitue.GetRequest<CocktailViewModel>("api/Cocktail/Get/" + id);
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = (count * Cocktail.Price).ToString();
                 }
@@ -105,7 +95,8 @@ namespace BarView
             }
             try
             {
-                serviceM.CreateBooking(new BookingBindingModel
+                APIHabitue.PostRequest<BookingBindingModel,
+                bool>("api/Main/CreateBooking", new BookingBindingModel
                 {
                     HabitueId = Convert.ToInt32(comboBoxHabitue.SelectedValue),
                     CocktailId = Convert.ToInt32(comboBoxCocktail.SelectedValue),

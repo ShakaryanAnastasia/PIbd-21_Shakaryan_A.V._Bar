@@ -10,30 +10,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+
 
 namespace BarView
 {
     public partial class FormPutOnPantry : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-        private readonly IPantryService serviceS;
-        private readonly IIngredientService serviceC;
-        private readonly IMainService serviceM;
-        public FormPutOnPantry(IPantryService serviceS, IIngredientService serviceC,
-        IMainService serviceM)
+        public FormPutOnPantry()
         {
             InitializeComponent();
-            this.serviceS = serviceS;
-            this.serviceC = serviceC;
-            this.serviceM = serviceM;
         }
         private void FormPutOnPantry_Load(object sender, EventArgs e)
         {
             try
             {
-                List<IngredientViewModel> listC = serviceC.GetList();
+                List<IngredientViewModel> listC = APIHabitue.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (listC != null)
                 {
                     comboBoxIngredient.DisplayMember = "IngredientName";
@@ -41,11 +32,11 @@ namespace BarView
                     comboBoxIngredient.DataSource = listC;
                     comboBoxIngredient.SelectedItem = null;
                 }
-                List<PantryViewModel> listS = serviceS.GetList();
+                List<PantryViewModel> listS = APIHabitue.GetRequest<List<PantryViewModel>>("api/Pantry/GetList");
                 if (listS != null)
                 {
-                    
-                comboBoxPantry.DisplayMember = "PantryName";
+
+                    comboBoxPantry.DisplayMember = "PantryName";
                     comboBoxPantry.ValueMember = "Id";
                     comboBoxPantry.DataSource = listS;
                     comboBoxPantry.SelectedItem = null;
@@ -79,7 +70,8 @@ namespace BarView
             }
             try
             {
-                serviceM.PutIngredientOnPantry(new PantryIngredientBindingModel
+                APIHabitue.PostRequest<PantryIngredientBindingModel,
+                bool>("api/Main/PutIngredientOnPantry", new PantryIngredientBindingModel
                 {
                     IngredientId = Convert.ToInt32(comboBoxIngredient.SelectedValue),
                     PantryId = Convert.ToInt32(comboBoxPantry.SelectedValue),

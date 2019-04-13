@@ -10,27 +10,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+
 
 namespace BarView
 {
     public partial class FormCocktail : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
 
         public int Id { set { id = value; } }
-
-        private readonly ICocktailService service;
 
         private int? id;
 
         private List<CocktailIngredientViewModel> CocktailIngredients;
 
-        public FormCocktail(ICocktailService service)
+        public FormCocktail()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void FormCocktail_Load(object sender, EventArgs e)
@@ -39,7 +34,7 @@ namespace BarView
             {
                 try
                 {
-                    CocktailViewModel view = service.GetElement(id.Value);
+                    CocktailViewModel view = APIHabitue.GetRequest<CocktailViewModel>("api/Cocktail/Get/" + id.Value);
                     if (view != null)
                     {
                         textBoxName.Text = view.CocktailName;
@@ -84,7 +79,7 @@ namespace BarView
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormCocktailIngredient>();
+            var form = new FormCocktailIngredient();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 if (form.Model != null)
@@ -103,7 +98,7 @@ namespace BarView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var form = Container.Resolve<FormCocktailIngredient>();
+                var form = new FormCocktailIngredient();
                 form.Model =
                 CocktailIngredients[dataGridView.SelectedRows[0].Cells[0].RowIndex];
                 if (form.ShowDialog() == DialogResult.OK)
@@ -177,7 +172,8 @@ namespace BarView
                 }
                 if (id.HasValue)
                 {
-                    service.UpdElement(new CocktailBindingModel
+                    APIHabitue.PostRequest<CocktailBindingModel,
+                    bool>("api/Cocktail/UpdElement", new CocktailBindingModel
                     {
                         Id = id.Value,
                         CocktailName = textBoxName.Text,
@@ -187,7 +183,8 @@ namespace BarView
                 }
                 else
                 {
-                    service.AddElement(new CocktailBindingModel
+                    APIHabitue.PostRequest<CocktailBindingModel,
+                    bool>("api/Cocktail/AddElement", new CocktailBindingModel
                     {
                         CocktailName = textBoxName.Text,
                         Price = Convert.ToInt32(textBoxPrice.Text),

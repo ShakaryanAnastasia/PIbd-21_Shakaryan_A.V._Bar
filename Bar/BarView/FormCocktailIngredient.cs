@@ -7,18 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
 using BarServiceDAL.ViewModels;
 using BarServiceDAL.Interfaces;
 
 namespace BarView
 {
     public partial class FormCocktailIngredient : Form
-    { 
-
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
+    {
         public CocktailIngredientViewModel Model
         {
             set { model = value; }
@@ -28,21 +23,18 @@ namespace BarView
             }
         }
 
-        private readonly IIngredientService service;
-
         private CocktailIngredientViewModel model;
 
-        public FormCocktailIngredient(IIngredientService service)
+        public FormCocktailIngredient()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void FormCocktailIngredient_Load(object sender, EventArgs e)
         {
             try
             {
-                List<IngredientViewModel> list = service.GetList();
+                List<IngredientViewModel> list = APIHabitue.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (list != null)
                 {
                     comboBoxIngredient.DisplayMember = "IngredientName";

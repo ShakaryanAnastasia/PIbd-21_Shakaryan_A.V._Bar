@@ -1,39 +1,24 @@
 ﻿using BarServiceDAL.BindingModels;
-using BarServiceDAL.Interfaces;
 using BarServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+
 
 namespace BarView
 {
     public partial class FormMain : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
-        private readonly IMainService service;
-        private IRecordService recordService;
-
-        public FormMain(IMainService service, IRecordService recordService)
+        public FormMain()
         {
             InitializeComponent();
-            this.service = service;
-            this.recordService = recordService;
         }
 
         private void LoadData()
         {
             try
             {
-                List<BookingViewModel> list = service.GetList();
+                List<BookingViewModel> list = APIHabitue.GetRequest<List<BookingViewModel>>("api/Main/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -54,30 +39,30 @@ namespace BarView
 
         private void завсегдатаиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormHabitues>();
+            var form = new FormHabitues();
             form.ShowDialog();
         }
 
         private void ингредиентыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormIngredients>();
+            var form = new FormIngredients();
             form.ShowDialog();
         }
 
         private void коктейлиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormCocktails>();
+            var form = new FormCocktails();
             form.ShowDialog();
         }
         private void кладовыеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormPantrys>();
+            var form = new FormPantrys();
             form.ShowDialog();
         }
 
         private void пополнитьКладовуюToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormPutOnPantry>();
+            var form = new FormPutOnPantry();
             form.ShowDialog();
         }
 
@@ -91,7 +76,8 @@ namespace BarView
             {
                 try
                 {
-                    recordService.SaveCocktailPrice(new RecordBindingModel
+                    APIHabitue.PostRequest<RecordBindingModel,
+                    bool>("api/Record/SaveCocktailPrice", new RecordBindingModel
                     {
                         FileName = sfd.FileName
                     });
@@ -108,18 +94,18 @@ namespace BarView
 
         private void загруженностьКладовыхToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormPantrysLoad>();
+            var form = new FormPantrysLoad();
             form.ShowDialog();
         }
         private void заказыЗавсегдатаевToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormHabitueBookings>();
+            var form = new FormHabitueBookings();
             form.ShowDialog();
         }
 
         private void buttonCreateBooking_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormCreateBooking>();
+            var form = new FormCreateBooking();
             form.ShowDialog();
             LoadData();
         }
@@ -131,7 +117,11 @@ namespace BarView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.TakeBookingInWork(new BookingBindingModel { Id = id });
+                    APIHabitue.PostRequest<BookingBindingModel,
+                    bool>("api/Main/TakeBookingInWork", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -149,7 +139,11 @@ namespace BarView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.FinishBooking(new BookingBindingModel { Id = id });
+                    APIHabitue.PostRequest<BookingBindingModel,
+                    bool>("api/Main/FinishBooking", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -167,7 +161,11 @@ namespace BarView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.PayBooking(new BookingBindingModel { Id = id });
+                    APIHabitue.PostRequest<BookingBindingModel,
+                    bool>("api/Main/PayBooking", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                 }
                 catch (Exception ex)

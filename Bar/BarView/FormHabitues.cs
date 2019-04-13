@@ -1,4 +1,5 @@
-﻿using BarServiceDAL.Interfaces;
+﻿using BarServiceDAL.BindingModels;
+using BarServiceDAL.Interfaces;
 using BarServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,18 +10,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+
 
 namespace BarView
 {
     public partial class FormHabitues : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
-        private readonly IHabitueService service;
-
-        public FormHabitues(IHabitueService service) { InitializeComponent(); this.service = service; }
+        public FormHabitues()
+        {
+            InitializeComponent();
+        }
 
         private void FormHabitues_Load(object sender, EventArgs e)
         {
@@ -30,7 +29,8 @@ namespace BarView
         {
             try
             {
-                List<HabitueViewModel> list = service.GetList();
+                List<HabitueViewModel> list =
+                APIHabitue.GetRequest<List<HabitueViewModel>>("api/Habitue/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -48,7 +48,7 @@ namespace BarView
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormHabitue>();
+            var form = new FormHabitue();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadData();
@@ -58,9 +58,12 @@ namespace BarView
         private void buttonUpd_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
+
             {
-                var form = Container.Resolve<FormHabitue>();
-                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                var form = new FormHabitue
+                {
+                    Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value)
+                };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LoadData();
@@ -79,7 +82,8 @@ namespace BarView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        service.DelElement(id);
+                        APIHabitue.PostRequest<HabitueBindingModel,
+                        bool>("api/Habitue/DelElement", new HabitueBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
@@ -95,6 +99,5 @@ namespace BarView
         {
             LoadData();
         }
-
     }
 }

@@ -10,25 +10,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+
 
 namespace BarView
 {
     public partial class FormIngredient : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
         public int Id { set { id = value; } }
-
-        private readonly IIngredientService service;
 
         private int? id;
 
-        public FormIngredient(IIngredientService service)
+        public FormIngredient()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void FormIngredient_Load(object sender, EventArgs e)
@@ -37,11 +31,8 @@ namespace BarView
             {
                 try
                 {
-                    IngredientViewModel view = service.GetElement(id.Value);
-                    if (view != null)
-                    {
-                        textBoxName.Text = view.IngredientName;
-                    }
+                    IngredientViewModel view = APIHabitue.GetRequest<IngredientViewModel>("api/Ingredient/Get/" + id.Value);
+                    textBoxName.Text = view.IngredientName;
                 }
                 catch (Exception ex)
                 {
@@ -60,12 +51,14 @@ namespace BarView
             {
                 if (id.HasValue)
                 {
-                    service.UpdElement(new IngredientBindingModel
-                    { Id = id.Value, IngredientName = textBoxName.Text });
+                    APIHabitue.PostRequest<IngredientBindingModel,
+                   bool>("api/Ingredient/UpdElement", new IngredientBindingModel
+                   { Id = id.Value, IngredientName = textBoxName.Text });
                 }
                 else
                 {
-                    service.AddElement(new IngredientBindingModel { IngredientName = textBoxName.Text });
+                    APIHabitue.PostRequest<IngredientBindingModel,
+                    bool>("api/Ingredient/AddElement", new IngredientBindingModel { IngredientName = textBoxName.Text });
                 }
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information); DialogResult = DialogResult.OK; Close();
             }
@@ -80,6 +73,5 @@ namespace BarView
             DialogResult = DialogResult.Cancel;
             Close();
         }
-
     }
 }
