@@ -40,10 +40,21 @@ namespace BarWeb
             }
             if (Session["SEId"] != null)
             {
+                model = new CocktailIngredientViewModel
+                {
+                    IngredientId = Convert.ToInt32(Session["SEIngredientId"]),
+                    IngredientName = Session["SEIngredientName"].ToString(),
+                    Count = Convert.ToInt32(Session["SECount"].ToString())
+                };
                 DropDownListIngredient.Enabled = false;
-                DropDownListIngredient.SelectedValue = (string)Session["SEIngredientId"];
-                TextBoxCount.Text = (string)Session["SECount"];
+                DropDownListIngredient.SelectedValue = Session["SEIngredientId"].ToString();
             }
+
+            if ((Session["SEId"] != null) && (!Page.IsPostBack))
+            {
+                TextBoxCount.Text = Session["SECount"].ToString();
+            }
+
         }
 
         protected void ButtonSave_Click(object sender, EventArgs e)
@@ -82,6 +93,7 @@ namespace BarWeb
                     Session["SEIngredientId"] = model.IngredientId;
                     Session["SEIngredientName"] = model.IngredientName;
                     Session["SECount"] = model.Count;
+                    Session["Change"] = "1";
                 }
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Сохранение прошло успешно');</script>");
                 Server.Transfer("FormCocktail.aspx");

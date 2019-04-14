@@ -18,7 +18,7 @@ namespace BarWeb
 
         private int id;
 
-        private List<CocktailIngredientViewModel> CocktailIngredient;
+        private List<CocktailIngredientViewModel> cocktailIngredients;
 
         private CocktailIngredientViewModel model;
 
@@ -31,11 +31,15 @@ namespace BarWeb
                     CocktailViewModel view = service.GetElement(id);
                     if (view != null)
                     {
-                        textBoxName.Text = view.CocktailName;
-                        textBoxPrice.Text = view.Price.ToString();
-                        this.CocktailIngredient = view.CocktailIngredients;
+                        if (!Page.IsPostBack)
+                        {
+                            textBoxName.Text = view.CocktailName;
+                            textBoxPrice.Text = view.Price.ToString();
+                        }
+                        this.cocktailIngredients = view.CocktailIngredients;
                         LoadData();
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -44,104 +48,88 @@ namespace BarWeb
             }
             else
             {
-                if (service.GetList().Count == 0 || service.GetList().Last().CocktailName != null)
-                {
-                    this.CocktailIngredient = new List<CocktailIngredientViewModel>();
-                    LoadData();
-                }
-                else
-                {
-                    this.CocktailIngredient = service.GetList().Last().CocktailIngredients;
-                    LoadData();
-                }
+                this.cocktailIngredients = new List<CocktailIngredientViewModel>();
+
             }
             if (Session["SEId"] != null)
             {
-                model = new CocktailIngredientViewModel
+                if ((Session["SEIs"] != null) && (Session["Change"].ToString() != "0"))
                 {
-                    Id = (int)Session["SEId"],
-                    CocktailId = (int)Session["SECocktailId"],
-                    IngredientId = (int)Session["SEIngredientId"],
-                    IngredientName = (string)Session["SEIngredientName"],
-                    Count = (int)Session["SECount"]
-                };
-                if (Session["SEIs"] != null)
-                {
-                    this.CocktailIngredient[(int)Session["SEIs"]] = model;
+                    model = new CocktailIngredientViewModel
+                    {
+                        Id = (int)Session["SEId"],
+                        CocktailId = (int)Session["SECocktailId"],
+                        IngredientId = (int)Session["SEIngredientId"],
+                        IngredientName = (string)Session["SEIngredientName"],
+                        Count = (int)Session["SECount"]
+                    };
+                    this.cocktailIngredients[(int)Session["SEIs"]] = model;
+                    Session["Change"] = "0";
                 }
                 else
                 {
-                    this.CocktailIngredient.Add(model);
+                    model = new CocktailIngredientViewModel
+                    {
+                        CocktailId = (int)Session["SECocktailId"],
+                        IngredientId = (int)Session["SEIngredientId"],
+                        IngredientName = (string)Session["SEIngredientName"],
+                        Count = (int)Session["SECount"]
+                    };
+                    this.cocktailIngredients.Add(model);
                 }
+                Session["SEId"] = null;
+                Session["SECocktailId"] = null;
+                Session["SEIngredientId"] = null;
+                Session["SEIngredientName"] = null;
+                Session["SECount"] = null;
+                Session["SEIs"] = null;
             }
-            List<CocktailIngredientBindingModel> commodityIngredient = new List<CocktailIngredientBindingModel>();
-            for (int i = 0; i < this.CocktailIngredient.Count; ++i)
+            List<CocktailIngredientBindingModel> cocktailIngredientBM = new List<CocktailIngredientBindingModel>();
+            for (int i = 0; i < this.cocktailIngredients.Count; ++i)
             {
-                commodityIngredient.Add(new CocktailIngredientBindingModel
+                cocktailIngredientBM.Add(new CocktailIngredientBindingModel
                 {
-                    Id = this.CocktailIngredient[i].Id,
-                    CocktailId = this.CocktailIngredient[i].CocktailId,
-                    IngredientId = this.CocktailIngredient[i].IngredientId,
-                    Count = this.CocktailIngredient[i].Count
+                    Id = this.cocktailIngredients[i].Id,
+                    CocktailId = this.cocktailIngredients[i].CocktailId,
+                    IngredientId = this.cocktailIngredients[i].IngredientId,
+                    Count = this.cocktailIngredients[i].Count
                 });
             }
-            if (commodityIngredient.Count != 0)
+            if (cocktailIngredientBM.Count != 0)
             {
-                if (service.GetList().Count == 0 || service.GetList().Last().CocktailName != null)
-                {
-                    service.AddElement(new CocktailBindingModel
-                    {
-                        CocktailName = null,
-                        Price = -1,
-                        CocktailIngredients = commodityIngredient
-                    });
-                }
-                else
+                if (Int32.TryParse((string)Session["id"], out id))
                 {
                     service.UpdElement(new CocktailBindingModel
                     {
-                        Id = service.GetList().Last().Id,
-                        CocktailName = null,
-                        Price = -1,
-                        CocktailIngredients = commodityIngredient
+                        Id = id,
+                        CocktailName = textBoxName.Text,
+                        Price = Convert.ToInt32(textBoxPrice.Text),
+                        CocktailIngredients = cocktailIngredientBM
                     });
                 }
-
-            }
-            try
-            {
-                if (this.CocktailIngredient != null)
+                else
                 {
-                    dataGridView.DataBind();
-                    dataGridView.DataSource = this.CocktailIngredient;
-                    dataGridView.DataBind();
-                    dataGridView.ShowHeaderWhenEmpty = true;
-                    dataGridView.SelectedRowStyle.BackColor = Color.Silver;
-                    dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].Visible = false;
-                    dataGridView.Columns[3].Visible = false;
+                    service.AddElement(new CocktailBindingModel
+                    {
+                        CocktailName = "-0",
+                        Price = 0,
+                        CocktailIngredients = cocktailIngredientBM
+                    });
+                    Session["id"] = service.GetList().Last().Id.ToString();
+                    Session["Change"] = "0";
                 }
             }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
-            }
-            Session["SEId"] = null;
-            Session["SECocktailId"] = null;
-            Session["SEIngredientId"] = null;
-            Session["SEIngredientName"] = null;
-            Session["SECount"] = null;
-            Session["SEIs"] = null;
+            LoadData();
         }
 
         private void LoadData()
         {
             try
             {
-                if (CocktailIngredient != null)
+                if (cocktailIngredients != null)
                 {
                     dataGridView.DataBind();
-                    dataGridView.DataSource = CocktailIngredient;
+                    dataGridView.DataSource = cocktailIngredients;
                     dataGridView.DataBind();
                     dataGridView.ShowHeaderWhenEmpty = true;
                     dataGridView.SelectedRowStyle.BackColor = Color.Silver;
@@ -154,6 +142,7 @@ namespace BarWeb
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
             }
+
         }
 
         protected void ButtonAdd_Click(object sender, EventArgs e)
@@ -165,12 +154,14 @@ namespace BarWeb
         {
             if (dataGridView.SelectedIndex >= 0)
             {
+                model = service.GetElement(id).CocktailIngredients[dataGridView.SelectedIndex];
                 Session["SEId"] = model.Id;
                 Session["SECocktailId"] = model.CocktailId;
                 Session["SEIngredientId"] = model.IngredientId;
                 Session["SEIngredientName"] = model.IngredientName;
                 Session["SECount"] = model.Count;
                 Session["SEIs"] = dataGridView.SelectedIndex;
+                Session["Change"] = "0";
                 Server.Transfer("FormCocktailIngredient.aspx");
             }
         }
@@ -181,7 +172,7 @@ namespace BarWeb
             {
                 try
                 {
-                    CocktailIngredient.RemoveAt(dataGridView.SelectedIndex);
+                    cocktailIngredients.RemoveAt(dataGridView.SelectedIndex);
                 }
                 catch (Exception ex)
                 {
@@ -208,25 +199,25 @@ namespace BarWeb
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Заполните цену');</script>");
                 return;
             }
-            if (CocktailIngredient == null || CocktailIngredient.Count == 0)
+            if (cocktailIngredients == null || cocktailIngredients.Count == 0)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Заполните ингредиенты');</script>");
                 return;
             }
             try
             {
-                List<CocktailIngredientBindingModel> commodityIngredientBM = new List<CocktailIngredientBindingModel>();
-                for (int i = 0; i < CocktailIngredient.Count; ++i)
+                List<CocktailIngredientBindingModel> cocktailIngredientBM = new List<CocktailIngredientBindingModel>();
+                for (int i = 0; i < cocktailIngredients.Count; ++i)
                 {
-                    commodityIngredientBM.Add(new CocktailIngredientBindingModel
+                    cocktailIngredientBM.Add(new CocktailIngredientBindingModel
                     {
-                        Id = CocktailIngredient[i].Id,
-                        CocktailId = CocktailIngredient[i].CocktailId,
-                        IngredientId = CocktailIngredient[i].IngredientId,
-                        Count = CocktailIngredient[i].Count
+                        Id = cocktailIngredients[i].Id,
+                        CocktailId = cocktailIngredients[i].CocktailId,
+                        IngredientId = cocktailIngredients[i].IngredientId,
+                        Count = cocktailIngredients[i].Count
                     });
                 }
-                service.DelElement(service.GetList().Last().Id);
+                //service.DelElement(service.GetList().Last().Id);
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
                     service.UpdElement(new CocktailBindingModel
@@ -234,7 +225,7 @@ namespace BarWeb
                         Id = id,
                         CocktailName = textBoxName.Text,
                         Price = Convert.ToInt32(textBoxPrice.Text),
-                        CocktailIngredients = commodityIngredientBM
+                        CocktailIngredients = cocktailIngredientBM
                     });
                 }
                 else
@@ -243,10 +234,11 @@ namespace BarWeb
                     {
                         CocktailName = textBoxName.Text,
                         Price = Convert.ToInt32(textBoxPrice.Text),
-                        CocktailIngredients = commodityIngredientBM
+                        CocktailIngredients = cocktailIngredientBM
                     });
                 }
                 Session["id"] = null;
+                Session["Change"] = null;
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Сохранение прошло успешно');</script>");
                 Server.Transfer("FormCocktails.aspx");
             }
@@ -262,7 +254,12 @@ namespace BarWeb
             {
                 service.DelElement(service.GetList().Last().Id);
             }
+            if (!String.Equals(Session["Change"], null))
+            {
+                service.DelElement(id);
+            }
             Session["id"] = null;
+            Session["Change"] = null;
             Server.Transfer("FormCocktails.aspx");
         }
 
