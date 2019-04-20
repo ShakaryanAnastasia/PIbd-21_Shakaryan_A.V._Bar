@@ -155,5 +155,10 @@ namespace BarServiceImplement.Implementations
                 });
             }
         }
+
+        public List<BookingViewModel> GetFreeBookings()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

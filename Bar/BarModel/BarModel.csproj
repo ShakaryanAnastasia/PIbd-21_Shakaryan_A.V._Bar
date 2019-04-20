@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bartender.cs" />
     <Compile Include="Habitue.cs" />
     <Compile Include="Cocktail.cs" />
     <Compile Include="CocktailIngredient.cs" />

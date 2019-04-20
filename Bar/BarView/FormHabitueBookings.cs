@@ -29,7 +29,7 @@ namespace BarView
                     "c " + dateTimePickerFrom.Value.ToShortDateString() +
                     " по " + dateTimePickerTo.Value.ToShortDateString());
                 recordViewer.LocalReport.SetParameters(parameter);
-                List<HabitueBookingsModel> response = APIHabitue.PostRequest<RecordBindingModel,
+                List<HabitueBookingsModel> response = APIClient.PostRequest<RecordBindingModel,
                 List<HabitueBookingsModel>>("api/Record/GetHabitueBookings", new RecordBindingModel
                 {
                     DateFrom = dateTimePickerFrom.Value,
@@ -62,7 +62,7 @@ namespace BarView
             {
                 try
                 {
-                    APIHabitue.PostRequest<RecordBindingModel,
+                    APIClient.PostRequest<RecordBindingModel,
                     bool>("api/Record/SaveHabitueBookings", new RecordBindingModel
                     {
                         FileName = sfd.FileName,

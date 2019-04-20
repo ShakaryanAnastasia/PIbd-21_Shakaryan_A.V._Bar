@@ -34,7 +34,7 @@ namespace BarView
         {
             try
             {
-                List<IngredientViewModel> list = APIHabitue.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
+                List<IngredientViewModel> list = APIClient.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (list != null)
                 {
                     comboBoxIngredient.DisplayMember = "IngredientName";

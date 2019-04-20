@@ -23,6 +23,7 @@ namespace BarServiceImplementDataBase
         public virtual DbSet<Ingredient> Ingredients { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<Cocktail> Cocktails { get; set; }
+        public virtual DbSet<Bartender> Bartenders { get; set; }
         public virtual DbSet<CocktailIngredient> CocktailIngredients { get; set; }
         public virtual DbSet<Pantry> Pantrys { get; set; }
         public virtual DbSet<PantryIngredient> PantryIngredients { get; set; }

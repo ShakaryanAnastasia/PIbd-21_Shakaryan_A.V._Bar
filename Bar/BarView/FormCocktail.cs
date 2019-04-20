@@ -34,7 +34,7 @@ namespace BarView
             {
                 try
                 {
-                    CocktailViewModel view = APIHabitue.GetRequest<CocktailViewModel>("api/Cocktail/Get/" + id.Value);
+                    CocktailViewModel view = APIClient.GetRequest<CocktailViewModel>("api/Cocktail/Get/" + id.Value);
                     if (view != null)
                     {
                         textBoxName.Text = view.CocktailName;
@@ -172,7 +172,7 @@ namespace BarView
                 }
                 if (id.HasValue)
                 {
-                    APIHabitue.PostRequest<CocktailBindingModel,
+                    APIClient.PostRequest<CocktailBindingModel,
                     bool>("api/Cocktail/UpdElement", new CocktailBindingModel
                     {
                         Id = id.Value,
@@ -183,7 +183,7 @@ namespace BarView
                 }
                 else
                 {
-                    APIHabitue.PostRequest<CocktailBindingModel,
+                    APIClient.PostRequest<CocktailBindingModel,
                     bool>("api/Cocktail/AddElement", new CocktailBindingModel
                     {
                         CocktailName = textBoxName.Text,

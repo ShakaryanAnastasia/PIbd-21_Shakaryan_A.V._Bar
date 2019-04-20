@@ -18,7 +18,7 @@ namespace BarView
         {
             try
             {
-                List<BookingViewModel> list = APIHabitue.GetRequest<List<BookingViewModel>>("api/Main/GetList");
+                List<BookingViewModel> list = APIClient.GetRequest<List<BookingViewModel>>("api/Main/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -40,6 +40,11 @@ namespace BarView
         private void завсегдатаиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = new FormHabitues();
+            form.ShowDialog();
+        }
+        private void барменыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormBartenders();           
             form.ShowDialog();
         }
 
@@ -76,7 +81,7 @@ namespace BarView
             {
                 try
                 {
-                    APIHabitue.PostRequest<RecordBindingModel,
+                    APIClient.PostRequest<RecordBindingModel,
                     bool>("api/Record/SaveCocktailPrice", new RecordBindingModel
                     {
                         FileName = sfd.FileName
@@ -103,55 +108,26 @@ namespace BarView
             form.ShowDialog();
         }
 
+        private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                APIClient.PostRequest<int?, bool>("api/Main/StartWork", null);
+                MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }
+        }
+
         private void buttonCreateBooking_Click(object sender, EventArgs e)
         {
             var form = new FormCreateBooking();
             form.ShowDialog();
             LoadData();
-        }
-
-        private void buttonTakeBookingInWork_Click(object sender, EventArgs e)
-        {
-            if (dataGridView.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                try
-                {
-                    APIHabitue.PostRequest<BookingBindingModel,
-                    bool>("api/Main/TakeBookingInWork", new BookingBindingModel
-                    {
-                        Id = id
-                    });
-                    LoadData();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void buttonBookingReady_Click(object sender, EventArgs e)
-        {
-            if (dataGridView.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                try
-                {
-                    APIHabitue.PostRequest<BookingBindingModel,
-                    bool>("api/Main/FinishBooking", new BookingBindingModel
-                    {
-                        Id = id
-                    });
-                    LoadData();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                }
-            }
         }
 
         private void buttonPayBooking_Click(object sender, EventArgs e)
@@ -161,7 +137,7 @@ namespace BarView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    APIHabitue.PostRequest<BookingBindingModel,
+                    APIClient.PostRequest<BookingBindingModel,
                     bool>("api/Main/PayBooking", new BookingBindingModel
                     {
                         Id = id

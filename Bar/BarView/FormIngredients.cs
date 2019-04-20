@@ -29,7 +29,7 @@ namespace BarView
         {
             try
             {
-                List<IngredientViewModel> list = APIHabitue.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
+                List<IngredientViewModel> list = APIClient.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -80,7 +80,7 @@ namespace BarView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        APIHabitue.PostRequest<IngredientBindingModel,
+                        APIClient.PostRequest<IngredientBindingModel,
                         bool>("api/Ingredient/DelElement", new IngredientBindingModel { Id = id });
                     }
                     catch (Exception ex)

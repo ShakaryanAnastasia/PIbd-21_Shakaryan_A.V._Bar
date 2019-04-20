@@ -23,7 +23,7 @@ namespace BarView
         {
             try
             {
-                List<HabitueViewModel> listC = APIHabitue.GetRequest<List<HabitueViewModel>>("api/Habitue/GetList");
+                List<HabitueViewModel> listC = APIClient.GetRequest<List<HabitueViewModel>>("api/Habitue/GetList");
                 if (listC != null)
                 {
                     comboBoxHabitue.DisplayMember = "HabitueFIO";
@@ -31,7 +31,7 @@ namespace BarView
                     comboBoxHabitue.DataSource = listC;
                     comboBoxHabitue.SelectedItem = null;
                 }
-                List<CocktailViewModel> listP = APIHabitue.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList");
+                List<CocktailViewModel> listP = APIClient.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList");
                 if (listP != null)
                 {
                     comboBoxCocktail.DisplayMember = "CocktailName";
@@ -54,7 +54,7 @@ namespace BarView
                 try
                 {
                     int id = Convert.ToInt32(comboBoxCocktail.SelectedValue);
-                    CocktailViewModel Cocktail = APIHabitue.GetRequest<CocktailViewModel>("api/Cocktail/Get/" + id);
+                    CocktailViewModel Cocktail = APIClient.GetRequest<CocktailViewModel>("api/Cocktail/Get/" + id);
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = (count * Cocktail.Price).ToString();
                 }
@@ -95,7 +95,7 @@ namespace BarView
             }
             try
             {
-                APIHabitue.PostRequest<BookingBindingModel,
+                APIClient.PostRequest<BookingBindingModel,
                 bool>("api/Main/CreateBooking", new BookingBindingModel
                 {
                     HabitueId = Convert.ToInt32(comboBoxHabitue.SelectedValue),

@@ -11,17 +11,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace BarView
 {
-    public partial class FormPantrys : Form
+    public partial class FormBartenders : Form
     {
-        public FormPantrys()
+        public FormBartenders()
         {
             InitializeComponent();
         }
 
-        private void FormPantrys_Load(object sender, EventArgs e)
+        private void FormBartenders_Load(object sender, EventArgs e)
         {
             LoadData();
         }
@@ -29,7 +28,8 @@ namespace BarView
         {
             try
             {
-                List<PantryViewModel> list = APIClient.GetRequest<List<PantryViewModel>>("api/Pantry/GetList");
+                List<BartenderViewModel> list =
+                APIClient.GetRequest<List<BartenderViewModel>>("api/Bartender/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -47,7 +47,7 @@ namespace BarView
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var form = new FormPantry();
+            var form = new FormBartender();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadData();
@@ -57,8 +57,9 @@ namespace BarView
         private void buttonUpd_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
+
             {
-                var form = new FormPantry
+                var form = new FormBartender
                 {
                     Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value)
                 };
@@ -80,8 +81,8 @@ namespace BarView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        APIClient.PostRequest<PantryBindingModel,
-                        bool>("api/Pantry/DelElement", new PantryBindingModel { Id = id });
+                        APIClient.PostRequest<BartenderBindingModel,
+                        bool>("api/Bartender/DelElement", new BartenderBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
@@ -92,6 +93,7 @@ namespace BarView
                 }
             }
         }
+
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();

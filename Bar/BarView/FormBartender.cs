@@ -11,54 +11,58 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace BarView
 {
-    public partial class FormIngredient : Form
+    public partial class FormBartender : Form
     {
         public int Id { set { id = value; } }
 
         private int? id;
 
-        public FormIngredient()
+        public FormBartender()
         {
             InitializeComponent();
         }
 
-        private void FormIngredient_Load(object sender, EventArgs e)
+        private void FormBartender_Load(object sender, EventArgs e)
         {
             if (id.HasValue)
             {
                 try
                 {
-                    IngredientViewModel view = APIClient.GetRequest<IngredientViewModel>("api/Ingredient/Get/" + id.Value);
-                    textBoxName.Text = view.IngredientName;
+                    BartenderViewModel Bartender =
+                    APIClient.GetRequest<BartenderViewModel>("api/Bartender/Get/" + id.Value);
+                    textBoxFIO.Text = Bartender.BartenderFIO;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 }
             }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxName.Text))
+            if (string.IsNullOrEmpty(textBoxFIO.Text))
             {
-                MessageBox.Show("Заполните Название", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
+                MessageBox.Show("Заполните ФИО", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
             }
             try
             {
                 if (id.HasValue)
                 {
-                    APIClient.PostRequest<IngredientBindingModel,
-                   bool>("api/Ingredient/UpdElement", new IngredientBindingModel
-                   { Id = id.Value, IngredientName = textBoxName.Text });
+                    APIClient.PostRequest<BartenderBindingModel,
+                    bool>("api/Bartender/UpdElement", new BartenderBindingModel
+                    { Id = id.Value, BartenderFIO = textBoxFIO.Text });
                 }
                 else
                 {
-                    APIClient.PostRequest<IngredientBindingModel,
-                    bool>("api/Ingredient/AddElement", new IngredientBindingModel { IngredientName = textBoxName.Text });
+                    APIClient.PostRequest<BartenderBindingModel,
+                    bool>("api/Bartender/AddElement", new BartenderBindingModel
+                    {
+                        BartenderFIO = textBoxFIO.Text
+                    });
                 }
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information); DialogResult = DialogResult.OK; Close();
             }
