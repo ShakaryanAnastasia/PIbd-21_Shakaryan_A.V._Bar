@@ -109,7 +109,7 @@ namespace BarServiceImplement.Implementations
             int index = -1;
             for (int i = 0; i < source.Bookings.Count; ++i)
             {
-                if (source.Habitues[i].Id == model.Id)
+                if (source.Bookings[i].Id == model.Id)
                 {
                     index = i;
                     break;
@@ -131,7 +131,7 @@ namespace BarServiceImplement.Implementations
             int index = -1;
             for (int i = 0; i < source.Bookings.Count; ++i)
             {
-                if (source.Habitues[i].Id == model.Id)
+                if (source.Bookings[i].Id == model.Id)
                 {
                     index = i;
                     break;
