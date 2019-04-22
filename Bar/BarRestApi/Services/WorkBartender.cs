@@ -46,7 +46,7 @@ namespace BarRestApi.Services
                 // забиваем мастерскую
                 _sem.WaitOne();
                 // Типа выполняем
-                Thread.Sleep(10);
+                Thread.Sleep(1000);
                 _service.FinishBooking(new BookingBindingModel
             {
                     Id = _bookingId
