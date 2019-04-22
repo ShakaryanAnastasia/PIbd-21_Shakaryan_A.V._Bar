@@ -23,7 +23,7 @@ namespace BarServiceDAL.ViewModels
         [DataMember]
         public int? BartenderId { get; set; }
         [DataMember]
-        public string BartenderName { get; set; }
+        public string BartenderFIO { get; set; }
         [DataMember]
         public int Count { get; set; }
         [DataMember]
