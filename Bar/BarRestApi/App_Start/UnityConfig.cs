@@ -60,6 +60,8 @@ HierarchicalLifetimeManager());
             HierarchicalLifetimeManager());
             container.RegisterType<IRecordService, RecordServiceDB>(new
             HierarchicalLifetimeManager());
+            container.RegisterType<IBartenderService, BartenderServiceDB>(new
+            HierarchicalLifetimeManager());
         }
     }
 }

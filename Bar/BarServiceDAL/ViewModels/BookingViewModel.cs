@@ -21,6 +21,10 @@ namespace BarServiceDAL.ViewModels
         [DataMember]
         public string CocktailName { get; set; }
         [DataMember]
+        public int? BartenderId { get; set; }
+        [DataMember]
+        public string BartenderFIO { get; set; }
+        [DataMember]
         public int Count { get; set; }
         [DataMember]
         public decimal Sum { get; set; }

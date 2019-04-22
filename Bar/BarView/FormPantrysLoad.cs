@@ -24,7 +24,7 @@ namespace BarView
         {
             try
             {
-                var dict = APIHabitue.GetRequest<List<PantrysLoadViewModel>>("api/Record/GetPantrysLoad");
+                var dict = APIClient.GetRequest<List<PantrysLoadViewModel>>("api/Record/GetPantrysLoad");
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
@@ -56,7 +56,7 @@ namespace BarView
             {
                 try
                 {
-                    APIHabitue.PostRequest<RecordBindingModel,
+                    APIClient.PostRequest<RecordBindingModel,
                     bool>("api/Record/SavePantrysLoad", new RecordBindingModel
                     {
                         FileName = sfd.FileName

@@ -6,15 +6,20 @@ using System.Net.Http;
 using System.Web.Http;
 using BarServiceDAL.BindingModels;
 using BarServiceDAL.Interfaces;
+using BarServiceDAL.ViewModels;
+using BarRestApi.Services;
 
 namespace BarRestApi.Controllers
 {
     public class MainController : ApiController
     {
         private readonly IMainService _service;
-        public MainController(IMainService service)
+
+        private readonly IBartenderService _serviceBartender;
+        public MainController(IMainService service, IBartenderService serviceBartender)
         {
             _service = service;
+            _serviceBartender = serviceBartender;
         }
         [HttpGet]
         public IHttpActionResult GetList()
@@ -37,7 +42,7 @@ namespace BarRestApi.Controllers
             _service.TakeBookingInWork(model);
         }
         [HttpPost]
-public void FinishBooking(BookingBindingModel model)
+        public void FinishBooking(BookingBindingModel model)
         {
             _service.FinishBooking(model);
         }
@@ -50,6 +55,21 @@ public void FinishBooking(BookingBindingModel model)
         public void PutIngredientOnPantry(PantryIngredientBindingModel model)
         {
             _service.PutIngredientOnPantry(model);
+        }
+
+        [HttpPost]
+        public void StartWork()
+        {
+            List<BookingViewModel> bookings = _service.GetFreeBookings();
+            foreach (var booking in bookings)
+            {
+                BartenderViewModel impl = _serviceBartender.GetFreeWorker();
+                if (impl == null)
+                {
+                    throw new Exception("Нет барменов");
+                }
+                new WorkBartender(_service, _serviceBartender, impl.Id, booking.Id);
+            }
         }
     }
 }

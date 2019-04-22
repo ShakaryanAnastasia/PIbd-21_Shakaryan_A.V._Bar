@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BarDbContext.cs" />
+    <Compile Include="Implementations\BartenderServiceDB.cs" />
     <Compile Include="Implementations\CocktailServiceDB.cs" />
     <Compile Include="Implementations\HabitueServiceDB.cs" />
     <Compile Include="Implementations\IngredientServiceDB.cs" />
@@ -73,6 +74,10 @@
     <Compile Include="Migrations\201903151318125_FirstMigration.cs" />
     <Compile Include="Migrations\201903151318125_FirstMigration.Designer.cs">
       <DependentUpon>201903151318125_FirstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904201402186_NewMigration.cs" />
+    <Compile Include="Migrations\201904201402186_NewMigration.Designer.cs">
+      <DependentUpon>201904201402186_NewMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,6 +105,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903151318125_FirstMigration.resx">
       <DependentUpon>201903151318125_FirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904201402186_NewMigration.resx">
+      <DependentUpon>201904201402186_NewMigration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

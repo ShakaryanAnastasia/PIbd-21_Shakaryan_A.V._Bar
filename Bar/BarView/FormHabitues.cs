@@ -30,7 +30,7 @@ namespace BarView
             try
             {
                 List<HabitueViewModel> list =
-                APIHabitue.GetRequest<List<HabitueViewModel>>("api/Habitue/GetList");
+                APIClient.GetRequest<List<HabitueViewModel>>("api/Habitue/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -82,7 +82,7 @@ namespace BarView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        APIHabitue.PostRequest<HabitueBindingModel,
+                        APIClient.PostRequest<HabitueBindingModel,
                         bool>("api/Habitue/DelElement", new HabitueBindingModel { Id = id });
                     }
                     catch (Exception ex)

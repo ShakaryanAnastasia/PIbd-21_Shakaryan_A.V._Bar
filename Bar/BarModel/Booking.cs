@@ -17,6 +17,7 @@ namespace BarModel
 
         public int CocktailId { get; set; }
 
+        public int? BartenderId { get; set; }
         public int Count { get; set; }
 
         public decimal Sum { get; set; }
@@ -28,5 +29,6 @@ namespace BarModel
         public DateTime? DateImplement { get; set; }
         public virtual Habitue Habitue { get; set; }
         public virtual Cocktail Cocktail { get; set; }
+        public virtual Bartender Bartender { get; set; }
     }
 }

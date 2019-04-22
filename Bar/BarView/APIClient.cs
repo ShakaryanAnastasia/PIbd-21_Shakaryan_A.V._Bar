@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace BarView
 {
-    public static class APIHabitue
+    public static class APIClient
     {
         private static HttpClient habitue = new HttpClient();
         public static void Connect()

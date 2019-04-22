@@ -32,7 +32,7 @@ namespace BarView
                 try
                 {
                     HabitueViewModel habitue =
-                    APIHabitue.GetRequest<HabitueViewModel>("api/Habitue/Get/" + id.Value);
+                    APIClient.GetRequest<HabitueViewModel>("api/Habitue/Get/" + id.Value);
                     textBoxFIO.Text = habitue.HabitueFIO;
                 }
                 catch (Exception ex)
@@ -53,13 +53,13 @@ namespace BarView
             {
                 if (id.HasValue)
                 {
-                    APIHabitue.PostRequest<HabitueBindingModel,
+                    APIClient.PostRequest<HabitueBindingModel,
                     bool>("api/Habitue/UpdElement", new HabitueBindingModel
                     { Id = id.Value, HabitueFIO = textBoxFIO.Text });
                 }
                 else
                 {
-                    APIHabitue.PostRequest<HabitueBindingModel,
+                    APIClient.PostRequest<HabitueBindingModel,
                     bool>("api/Habitue/AddElement", new HabitueBindingModel
                     {
                         HabitueFIO = textBoxFIO.Text

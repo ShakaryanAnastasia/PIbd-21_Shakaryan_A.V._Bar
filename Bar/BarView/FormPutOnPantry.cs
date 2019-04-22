@@ -24,7 +24,7 @@ namespace BarView
         {
             try
             {
-                List<IngredientViewModel> listC = APIHabitue.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
+                List<IngredientViewModel> listC = APIClient.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (listC != null)
                 {
                     comboBoxIngredient.DisplayMember = "IngredientName";
@@ -32,7 +32,7 @@ namespace BarView
                     comboBoxIngredient.DataSource = listC;
                     comboBoxIngredient.SelectedItem = null;
                 }
-                List<PantryViewModel> listS = APIHabitue.GetRequest<List<PantryViewModel>>("api/Pantry/GetList");
+                List<PantryViewModel> listS = APIClient.GetRequest<List<PantryViewModel>>("api/Pantry/GetList");
                 if (listS != null)
                 {
 
@@ -70,7 +70,7 @@ namespace BarView
             }
             try
             {
-                APIHabitue.PostRequest<PantryIngredientBindingModel,
+                APIClient.PostRequest<PantryIngredientBindingModel,
                 bool>("api/Main/PutIngredientOnPantry", new PantryIngredientBindingModel
                 {
                     IngredientId = Convert.ToInt32(comboBoxIngredient.SelectedValue),

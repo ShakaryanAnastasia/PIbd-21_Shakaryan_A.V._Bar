@@ -29,7 +29,7 @@ namespace BarView
         {
             try
             {
-                List<CocktailViewModel> list = APIHabitue.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList");
+                List<CocktailViewModel> list = APIClient.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -78,7 +78,7 @@ namespace BarView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        APIHabitue.PostRequest<CocktailBindingModel,
+                        APIClient.PostRequest<CocktailBindingModel,
                         bool>("api/Cocktail/DelElement", new CocktailBindingModel { Id = id });
                     }
                     catch (Exception ex)

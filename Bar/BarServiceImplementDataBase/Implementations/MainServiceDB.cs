@@ -22,6 +22,7 @@ namespace BarServiceImplementDataBase.Implementations
             List<BookingViewModel> result = context.Bookings.Select(rec => new BookingViewModel
             {
                 Id = rec.Id,
+
                 HabitueId = rec.HabitueId,
                 CocktailId = rec.CocktailId,
                 DateCreate = SqlFunctions.DateName("dd", rec.DateCreate) + " " +
@@ -38,7 +39,10 @@ namespace BarServiceImplementDataBase.Implementations
                 Count = rec.Count,
                 Sum = rec.Sum,
                 HabitueFIO = rec.Habitue.HabitueFIO,
-                CocktailName = rec.Cocktail.CocktailName
+                CocktailName = rec.Cocktail.CocktailName,
+                BartenderId = rec.BartenderId,
+                BartenderFIO = rec.Bartender.BartenderFIO
+
             })
             .ToList();
             return result;
@@ -69,7 +73,7 @@ namespace BarServiceImplementDataBase.Implementations
                     {
                         throw new Exception("Элемент не найден");
                     }
-                    if (element.Status != BookingStatus.Принят)
+                    if ((element.Status != BookingStatus.Принят) && (element.Status != BookingStatus.НедостаточноРесурсов))
                     {
                         throw new Exception("Заказ не в статусе \"Принят\"");
                     }
@@ -103,6 +107,7 @@ namespace BarServiceImplementDataBase.Implementations
                             CocktailIngredient.Ingredient.IngredientName + " требуется " + CocktailIngredient.Count + ", не хватает " + countOnPantrys);
                         }
                     }
+                    element.BartenderId = model.BartenderId;
                     element.DateImplement = DateTime.Now;
                     element.Status = BookingStatus.Смешивается;
                     context.SaveChanges();
@@ -111,6 +116,9 @@ namespace BarServiceImplementDataBase.Implementations
                 catch (Exception)
                 {
                     transaction.Rollback();
+                    Booking element = context.Bookings.FirstOrDefault(rec => rec.Id ==  model.Id);
+                    element.Status = BookingStatus.НедостаточноРесурсов;
+                    context.SaveChanges();
                     throw;
                 }
             }
@@ -162,6 +170,18 @@ namespace BarServiceImplementDataBase.Implementations
                 });
             }
             context.SaveChanges();
+        }
+
+        public List<BookingViewModel> GetFreeBookings()
+        {
+            List<BookingViewModel> result = context.Bookings
+            .Where(x => x.Status == BookingStatus.Принят || x.Status == BookingStatus.НедостаточноРесурсов)
+            .Select(rec => new BookingViewModel
+            {
+                Id = rec.Id
+            })
+            .ToList();
+            return result;
         }
     }
 }

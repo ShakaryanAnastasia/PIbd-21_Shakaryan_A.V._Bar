@@ -29,7 +29,7 @@ namespace BarView
             {
                 try
                 {
-                    PantryViewModel view = APIHabitue.GetRequest<PantryViewModel>("api/Pantry/Get/" + id.Value);
+                    PantryViewModel view = APIClient.GetRequest<PantryViewModel>("api/Pantry/Get/" + id.Value);
                     if (view != null)
                     {
                         textBoxName.Text = view.PantryName;
@@ -60,7 +60,7 @@ namespace BarView
             {
                 if (id.HasValue)
                 {
-                    APIHabitue.PostRequest<PantryBindingModel,
+                    APIClient.PostRequest<PantryBindingModel,
                     bool>("api/Pantry/UpdElement", new PantryBindingModel
                     {
                         Id = id.Value,
@@ -69,7 +69,7 @@ namespace BarView
                 }
                 else
                 {
-                    APIHabitue.PostRequest<PantryBindingModel,
+                    APIClient.PostRequest<PantryBindingModel,
                    bool>("api/Pantry/AddElement", new PantryBindingModel
                    {
                        PantryName = textBoxName.Text
