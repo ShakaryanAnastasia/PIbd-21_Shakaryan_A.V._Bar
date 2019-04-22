@@ -19,46 +19,37 @@ namespace BarServiceImplement.Implementations
         }
         public List<HabitueViewModel> GetList()
         {
-            List<HabitueViewModel> result = new List<HabitueViewModel>();
-            for (int i = 0; i < source.Habitues.Count; ++i)
+            List<HabitueViewModel> result = source.Habitues.Select(rec => new
+ HabitueViewModel
             {
-                result.Add(new HabitueViewModel
-                {
-                    Id = source.Habitues[i].Id,
-                    HabitueFIO = source.Habitues[i].HabitueFIO
-                });
-            }
+                Id = rec.Id,
+                HabitueFIO = rec.HabitueFIO
+            })
+                 .ToList();
             return result;
         }
         public HabitueViewModel GetElement(int id)
         {
-            for (int i = 0; i < source.Habitues.Count; ++i)
+            Habitue element = source.Habitues.FirstOrDefault(rec => rec.Id == id);
+            if (element != null)
             {
-                if (source.Habitues[i].Id == id)
+                return new HabitueViewModel
                 {
-                    return new HabitueViewModel
-                    {
-                        Id = source.Habitues[i].Id,
-                        HabitueFIO = source.Habitues[i].HabitueFIO
-                    };
-                }
+                    Id = element.Id,
+                    HabitueFIO = element.HabitueFIO
+                };
             }
             throw new Exception("Элемент не найден");
         }
         public void AddElement(HabitueBindingModel model)
         {
-            int maxId = 0;
-            for (int i = 0; i < source.Habitues.Count; ++i)
+            Habitue element = source.Habitues.FirstOrDefault(rec => rec.HabitueFIO ==
+model.HabitueFIO);
+            if (element != null)
             {
-                if (source.Habitues[i].Id > maxId)
-                {
-                    maxId = source.Habitues[i].Id;
-                }
-                if (source.Habitues[i].HabitueFIO == model.HabitueFIO)
-                {
-                    throw new Exception("Уже есть завсегдатай с таким ФИО");
-                }
+                throw new Exception("Уже есть клиент с таким ФИО");
             }
+            int maxId = source.Habitues.Count > 0 ? source.Habitues.Max(rec => rec.Id) : 0;
             source.Habitues.Add(new Habitue
             {
                 Id = maxId + 1,
@@ -67,36 +58,30 @@ namespace BarServiceImplement.Implementations
         }
         public void UpdElement(HabitueBindingModel model)
         {
-            int index = -1;
-            for (int i = 0; i < source.Habitues.Count; ++i)
+            Habitue element = source.Habitues.FirstOrDefault(rec => rec.HabitueFIO ==
+ model.HabitueFIO && rec.Id != model.Id);
+            if (element != null)
             {
-                if (source.Habitues[i].Id == model.Id)
-                {
-                    index = i;
-                }
-                if (source.Habitues[i].HabitueFIO == model.HabitueFIO &&
-                source.Habitues[i].Id != model.Id)
-                {
-                    throw new Exception("Уже есть завсегдатай с таким ФИО");
-                }
+                throw new Exception("Уже есть клиент с таким ФИО");
             }
-            if (index == -1)
+            element = source.Habitues.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            source.Habitues[index].HabitueFIO = model.HabitueFIO;
+            element.HabitueFIO = model.HabitueFIO;
         }
         public void DelElement(int id)
         {
-            for (int i = 0; i < source.Habitues.Count; ++i)
+            Habitue element = source.Habitues.FirstOrDefault(rec => rec.Id == id);
+            if (element != null)
             {
-                if (source.Habitues[i].Id == id)
-                {
-                    source.Habitues.RemoveAt(i);
-                    return;
-                }
+                source.Habitues.Remove(element);
             }
-            throw new Exception("Элемент не найден");
+            else
+            {
+                throw new Exception("Элемент не найден");
+            }
         }
     }
 }

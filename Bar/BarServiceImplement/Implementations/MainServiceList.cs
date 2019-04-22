@@ -21,54 +21,25 @@ namespace BarServiceImplement.Implementations
 
         public List<BookingViewModel> GetList()
         {
-            List<BookingViewModel> result = new List<BookingViewModel>();
-            for (int i = 0; i < source.Bookings.Count; ++i)
+            List<BookingViewModel> result = source.Bookings.Select(rec => new BookingViewModel
             {
-                string HabitueFIO = string.Empty;
-                for (int j = 0; j < source.Habitues.Count; ++j)
-                {
-                    if (source.Habitues[j].Id == source.Bookings[i].HabitueId)
-                    {
-                        HabitueFIO = source.Habitues[j].HabitueFIO;
-                        break;
-                    }
-                }
-                string CocktailName = string.Empty;
-                for (int j = 0; j < source.Cocktails.Count; ++j)
-                {
-                    if (source.Cocktails[j].Id == source.Bookings[i].CocktailId)
-                    {
-                        CocktailName = source.Cocktails[j].CocktailName;
-                        break;
-                    }
-                }
-                result.Add(new BookingViewModel
-                {
-                    Id = source.Bookings[i].Id,
-                    HabitueId = source.Bookings[i].HabitueId,
-                    HabitueFIO = HabitueFIO,
-                    CocktailId = source.Bookings[i].CocktailId,
-                    CocktailName = CocktailName,
-                    Count = source.Bookings[i].Count,
-                    Sum = source.Bookings[i].Sum,
-                    DateCreate = source.Bookings[i].DateCreate.ToLongDateString(),
-                    DateImplement = source.Bookings[i].DateImplement?.ToLongDateString(),
-                    Status = source.Bookings[i].Status.ToString()
-                });
-            }
+                Id = rec.Id,
+                HabitueId = rec.HabitueId,
+                CocktailId = rec.CocktailId,
+                DateCreate = rec.DateCreate.ToLongDateString(),
+                DateImplement = rec.DateImplement?.ToLongDateString(),
+                Status = rec.Status.ToString(),
+                Count = rec.Count,
+                Sum = rec.Sum,
+                HabitueFIO = source.Habitues.FirstOrDefault(recC => recC.Id == rec.HabitueId)?.HabitueFIO,
+                CocktailName = source.Cocktails.FirstOrDefault(recP => recP.Id == rec.CocktailId)?.CocktailName,
+            }).ToList();
             return result;
         }
 
         public void CreateBooking(BookingBindingModel model)
         {
-            int maxId = 0;
-            for (int i = 0; i < source.Bookings.Count; ++i)
-            {
-                if (source.Bookings[i].Id > maxId)
-                {
-                    maxId = source.Bookings[i].Id;
-                }
-            }
+            int maxId = source.Bookings.Count > 0 ? source.Bookings.Max(rec => rec.Id) : 0;
             source.Bookings.Add(new Booking
             {
                 Id = maxId + 1,
@@ -83,69 +54,106 @@ namespace BarServiceImplement.Implementations
 
         public void TakeBookingInWork(BookingBindingModel model)
         {
-            int index = -1;
-            for (int i = 0; i < source.Bookings.Count; ++i)
-            {
-                if (source.Bookings[i].Id == model.Id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1)
+            Booking element = source.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            if (source.Bookings[index].Status != BookingStatus.Принят)
+            if (element.Status != BookingStatus.Принят)
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
-            source.Bookings[index].DateImplement = DateTime.Now;
-            source.Bookings[index].Status = BookingStatus.Смешивается;
+            // смотрим по количеству компонентов в кладовых
+            var CocktailIngredients = source.CocktailIngredients.Where(rec => rec.CocktailId
+            == element.CocktailId);
+
+            foreach (var CocktailIngredient in CocktailIngredients)
+            {
+                int countOnPantrys = source.PantryIngredients
+                .Where(rec => rec.IngredientId ==
+                CocktailIngredient.IngredientId)
+                .Sum(rec => rec.Count);
+                if (countOnPantrys < CocktailIngredient.Count * element.Count)
+                {
+                    var IngredientName = source.Ingredients.FirstOrDefault(rec => rec.Id ==
+                    CocktailIngredient.IngredientId);
+                    throw new Exception("Не достаточно ингредиента " +
+                    IngredientName?.IngredientName + " требуется " + (CocktailIngredient.Count * element.Count) +
+                    ", в наличии " + countOnPantrys);
+                }
+            }
+            // списываем
+            foreach (var CocktailIngredient in CocktailIngredients)
+            {
+                int countOnPantrys = CocktailIngredient.Count * element.Count;
+                var PantryIngredients = source.PantryIngredients.Where(rec => rec.IngredientId
+                == CocktailIngredient.IngredientId);
+                foreach (var PantryIngredient in PantryIngredients)
+                {
+                    // компонентов в одной кладовой может не хватать
+                    if (PantryIngredient.Count >= countOnPantrys)
+                    {
+                        PantryIngredient.Count -= countOnPantrys;
+                        break;
+                    }
+                    else
+                    {
+                        countOnPantrys -= PantryIngredient.Count;
+                        PantryIngredient.Count = 0;
+                    }
+                }
+            }
+            element.DateImplement = DateTime.Now;
+            element.Status = BookingStatus.Смешивается;
         }
 
         public void FinishBooking(BookingBindingModel model)
         {
-            int index = -1;
-            for (int i = 0; i < source.Bookings.Count; ++i)
-            {
-                if (source.Bookings[i].Id == model.Id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1)
+            Booking element = source.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            if (source.Bookings[index].Status != BookingStatus.Смешивается)
+            if (element.Status != BookingStatus.Смешивается)
             {
                 throw new Exception("Заказ не в статусе \"Смешивается\"");
             }
-            source.Bookings[index].Status = BookingStatus.Смешан;
+            element.Status = BookingStatus.Смешан;
         }
 
         public void PayBooking(BookingBindingModel model)
         {
-            int index = -1;
-            for (int i = 0; i < source.Bookings.Count; ++i)
-            {
-                if (source.Bookings[i].Id == model.Id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1)
+            Booking element = source.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            if (source.Bookings[index].Status != BookingStatus.Смешан)
+            if (element.Status != BookingStatus.Смешан)
             {
                 throw new Exception("Заказ не в статусе \"Смешан\"");
             }
-            source.Bookings[index].Status = BookingStatus.Оплачен;
+            element.Status = BookingStatus.Оплачен;
+        }
+        public void PutIngredientOnPantry(PantryIngredientBindingModel model)
+        {
+            PantryIngredient element = source.PantryIngredients.FirstOrDefault(rec =>
+            rec.PantryId == model.PantryId && rec.IngredientId == model.IngredientId);
+            if (element != null)
+            {
+                element.Count += model.Count;
+            }
+            else
+            {
+                int maxId = source.PantryIngredients.Count > 0 ?
+                source.PantryIngredients.Max(rec => rec.Id) : 0;
+                source.PantryIngredients.Add(new PantryIngredient
+                {
+                    Id = ++maxId,
+                    PantryId = model.PantryId,
+                    IngredientId = model.IngredientId,
+                    Count = model.Count
+                });
+            }
         }
     }
 }

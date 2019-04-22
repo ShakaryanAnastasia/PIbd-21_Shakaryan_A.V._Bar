@@ -67,6 +67,17 @@ namespace BarView
             var form = Container.Resolve<FormCocktails>();
             form.ShowDialog();
         }
+        private void кладовыеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormPantrys>();
+            form.ShowDialog();
+        }
+
+        private void пополнитьКладовуюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormPutOnPantry>();
+            form.ShowDialog();
+        }
 
         private void buttonCreateBooking_Click(object sender, EventArgs e)
         {

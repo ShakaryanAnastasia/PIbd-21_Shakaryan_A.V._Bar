@@ -116,6 +116,24 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPantry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPantry.Designer.cs">
+      <DependentUpon>FormPantry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPantrys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPantrys.Designer.cs">
+      <DependentUpon>FormPantrys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPutOnPantry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPutOnPantry.Designer.cs">
+      <DependentUpon>FormPutOnPantry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormCocktail.resx">
@@ -145,6 +163,15 @@
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormPantry.resx">
+      <DependentUpon>FormPantry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPantrys.resx">
+      <DependentUpon>FormPantrys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPutOnPantry.resx">
+      <DependentUpon>FormPutOnPantry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -160,6 +187,8 @@
     <None Include="Properties\DataSources\BarServiceDAL.ViewModels.CocktailViewModel.datasource" />
     <None Include="Properties\DataSources\BarServiceDAL.ViewModels.HabitueViewModel.datasource" />
     <None Include="Properties\DataSources\BarServiceDAL.ViewModels.IngredientViewModel.datasource" />
+    <None Include="Properties\DataSources\BarServiceDAL.ViewModels.PantryIngredientViewModel.datasource" />
+    <None Include="Properties\DataSources\BarServiceDAL.ViewModels.PantryViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
