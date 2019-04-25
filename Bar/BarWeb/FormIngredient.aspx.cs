@@ -19,39 +19,28 @@ namespace BarWeb
 
         private int id;
 
-        private string name;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Int32.TryParse((string)Session["id"], out id))
             {
-                try
-                {
-                    IngredientViewModel view = service.GetElement(id);
-                    if (view != null)
+                    try
                     {
-                        name = view.IngredientName;
-                        service.UpdElement(new IngredientBindingModel
+                        IngredientViewModel view = service.GetElement(id);
+                        if (view != null)
                         {
-                            Id = id,
-                            IngredientName = ""
-                        });
-                        if (!string.IsNullOrEmpty(name) && string.IsNullOrEmpty(textBoxName.Text))
-                        {
-                            textBoxName.Text = name;
+                            if (!Page.IsPostBack)
+                            {
+                                textBoxName.Text = view.IngredientName;
+                            }
                         }
-                        service.UpdElement(new IngredientBindingModel
-                        {
-                            Id = id,
-                            IngredientName = name
-                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
                     }
                 }
-                catch (Exception ex)
-                {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
-                }
-            }
+             
         }
 
         protected void ButtonSave_Click(object sender, EventArgs e)

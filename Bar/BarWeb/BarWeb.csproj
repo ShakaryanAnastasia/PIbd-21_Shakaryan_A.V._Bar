@@ -66,6 +66,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FormPantry.aspx" />
+    <Content Include="FormPantrys.aspx" />
+    <Content Include="FormPutOnPantry.aspx" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -149,6 +152,27 @@
     </Compile>
     <Compile Include="FormMain.aspx.designer.cs">
       <DependentUpon>FormMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormPantry.aspx.cs">
+      <DependentUpon>FormPantry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormPantry.aspx.designer.cs">
+      <DependentUpon>FormPantry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormPantrys.aspx.cs">
+      <DependentUpon>FormPantrys.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormPantrys.aspx.designer.cs">
+      <DependentUpon>FormPantrys.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormPutOnPantry.aspx.cs">
+      <DependentUpon>FormPutOnPantry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormPutOnPantry.aspx.designer.cs">
+      <DependentUpon>FormPutOnPantry.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
