@@ -26,5 +26,7 @@ namespace BarModel
         public DateTime DateCreate { get; set; }
 
         public DateTime? DateImplement { get; set; }
+        public virtual Habitue Habitue { get; set; }
+        public virtual Cocktail Cocktail { get; set; }
     }
 }

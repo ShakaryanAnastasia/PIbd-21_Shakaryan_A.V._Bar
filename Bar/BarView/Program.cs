@@ -1,7 +1,10 @@
 ﻿using BarServiceDAL.Interfaces;
 using BarServiceImplement.Implementations;
+using BarServiceImplementDataBase;
+using BarServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,15 +29,17 @@ namespace BarView
         public static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
-            currentContainer.RegisterType<IHabitueService, HabitueServiceList>(new
+            currentContainer.RegisterType<DbContext, BarDbContext>(new
+HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IHabitueService, HabitueServiceDB>(new
             HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IIngredientService, IngredientServiceList>(new
+            currentContainer.RegisterType<IIngredientService, IngredientServiceDB>(new
             HierarchicalLifetimeManager());
-            currentContainer.RegisterType<ICocktailService, CocktailServiceList>(new
+            currentContainer.RegisterType<ICocktailService, CocktailServiceDB>(new
             HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IMainService, MainServiceList>(new
+            currentContainer.RegisterType<IMainService, MainServiceDB>(new
             HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IPantryService, PantryServiceList>(new
+            currentContainer.RegisterType<IPantryService, PantryServiceDB>(new
             HierarchicalLifetimeManager());
 
             return currentContainer;
