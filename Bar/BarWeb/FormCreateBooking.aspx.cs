@@ -2,22 +2,24 @@
 using BarServiceDAL.Interfaces;
 using BarServiceDAL.ViewModels;
 using BarServiceImplement.Implementations;
+using BarServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity;
 
 namespace BarWeb
 {
     public partial class FormCreateBooking : System.Web.UI.Page
     {
-        private readonly IHabitueService serviceC = new HabitueServiceList();
+        private readonly IHabitueService serviceC = UnityConfig.Container.Resolve<HabitueServiceDB>();
 
-        private readonly ICocktailService serviceS = new CocktailServiceList();
+        private readonly ICocktailService serviceS = UnityConfig.Container.Resolve<CocktailServiceDB>();
 
-        private readonly IMainService serviceM = new MainServiceList();
+        private readonly IMainService serviceM = UnityConfig.Container.Resolve<MainServiceDB>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -69,11 +71,6 @@ namespace BarWeb
             }
         }
 
-        //protected void DropDownListService_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    CalcSum();
-        //}
-
         protected void TextBoxCount_TextChanged(object sender, EventArgs e)
         {
             CalcSum();
@@ -103,7 +100,7 @@ namespace BarWeb
                 HabitueId = Convert.ToInt32(DropDownListHabitue.SelectedValue),
                     CocktailId = Convert.ToInt32(DropDownListCocktail.SelectedValue),
                     Count = Convert.ToInt32(TextBoxCount.Text),
-                    Sum = Convert.ToInt32(TextBoxSum.Text)
+                    Sum = Convert.ToDecimal(TextBoxSum.Text)
                 });
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Сохранение прошло успешно');</script>");
                 Server.Transfer("FormMain.aspx");

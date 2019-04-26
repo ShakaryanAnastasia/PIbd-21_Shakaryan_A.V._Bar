@@ -49,15 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BarDbContext.cs" />
+    <Compile Include="BarWebDbContext.cs" />
     <Compile Include="Implementations\CocktailServiceDB.cs" />
     <Compile Include="Implementations\HabitueServiceDB.cs" />
     <Compile Include="Implementations\IngredientServiceDB.cs" />
     <Compile Include="Implementations\MainServiceDB.cs" />
     <Compile Include="Implementations\PantryServiceDB.cs" />
-    <Compile Include="Migrations\201903151318125_FirstMigration.cs" />
-    <Compile Include="Migrations\201903151318125_FirstMigration.Designer.cs">
-      <DependentUpon>201903151318125_FirstMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201904261357337_FirstMigration.cs" />
+    <Compile Include="Migrations\201904261357337_FirstMigration.Designer.cs">
+      <DependentUpon>201904261357337_FirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,8 +77,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903151318125_FirstMigration.resx">
-      <DependentUpon>201903151318125_FirstMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904261357337_FirstMigration.resx">
+      <DependentUpon>201904261357337_FirstMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

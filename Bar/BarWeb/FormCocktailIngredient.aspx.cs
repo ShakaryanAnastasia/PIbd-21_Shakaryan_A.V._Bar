@@ -1,18 +1,20 @@
 ﻿using BarServiceDAL.Interfaces;
 using BarServiceDAL.ViewModels;
 using BarServiceImplement.Implementations;
+using BarServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity;
 
 namespace BarWeb
 {
     public partial class FormCocktailIngredient : System.Web.UI.Page
     {
-        private readonly IIngredientService service = new IngredientServiceList();
+        private readonly IIngredientService service = UnityConfig.Container.Resolve<IngredientServiceDB>();
 
         private CocktailIngredientViewModel model;
 

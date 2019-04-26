@@ -14,10 +14,14 @@ namespace BarServiceImplementDataBase.Implementations
 {
     public class MainServiceDB : IMainService
     {
-        private BarDbContext context;
-        public MainServiceDB(BarDbContext context)
+        private BarWebDbContext context;
+        public MainServiceDB(BarWebDbContext context)
         {
             this.context = context;
+        }
+        public MainServiceDB()
+        {
+            this.context = new BarWebDbContext();
         }
         public List<BookingViewModel> GetList()
         {

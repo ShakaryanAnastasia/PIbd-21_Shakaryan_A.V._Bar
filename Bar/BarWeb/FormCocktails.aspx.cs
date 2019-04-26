@@ -7,12 +7,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BarServiceImplementDataBase.Implementations;
+using Unity;
 
 namespace BarWeb
 {
     public partial class FormCocktails : System.Web.UI.Page
     {
-        private readonly ICocktailService service = new CocktailServiceList();
+        private readonly ICocktailService service = UnityConfig.Container.Resolve<CocktailServiceDB>();
 
         List<CocktailViewModel> list;
 

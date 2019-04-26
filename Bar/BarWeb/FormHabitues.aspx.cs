@@ -2,18 +2,20 @@
 using BarServiceDAL.Interfaces;
 using BarServiceDAL.ViewModels;
 using BarServiceImplement.Implementations;
+using BarServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity;
 
 namespace BarWeb
 {
     public partial class FormHabitues : System.Web.UI.Page
     {
-        private readonly IHabitueService service = new HabitueServiceList();
+        private readonly IHabitueService service = UnityConfig.Container.Resolve<HabitueServiceDB>();
 
         List<HabitueViewModel> list;
 

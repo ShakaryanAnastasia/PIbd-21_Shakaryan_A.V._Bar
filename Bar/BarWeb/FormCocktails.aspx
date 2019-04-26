@@ -27,7 +27,7 @@
         <br />
         <br />
         <asp:Button ID="ButtonBack" runat="server" Text="Вернуться" OnClick="ButtonBack_Click" />
-        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetList" TypeName="BarServiceImplement.Implementations.CocktailServiceList"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetList" TypeName="BarServiceImplementDataBase.Implementations.CocktailServiceDB"></asp:ObjectDataSource>
     
     </div>
     </form>

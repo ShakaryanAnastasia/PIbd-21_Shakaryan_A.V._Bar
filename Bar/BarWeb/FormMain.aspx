@@ -46,7 +46,7 @@
             </Columns>
             <SelectedRowStyle BackColor="#CCCCCC" />
         </asp:GridView>
-        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="BarServiceDAL.BindingModels.BookingBindingModel" DeleteMethod="PayBooking" InsertMethod="CreateBooking" SelectMethod="GetList" TypeName="BarServiceImplement.Implementations.MainServiceList" UpdateMethod="TakeBookingInWork">
+        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DeleteMethod="PayBooking" InsertMethod="CreateBooking" SelectMethod="GetList" TypeName="BarServiceImplementDataBase.Implementations.MainServiceDB" UpdateMethod="TakeBookingInWork">
             <DeleteParameters>
                 <asp:Parameter Name="id" Type="Int32" />
             </DeleteParameters>

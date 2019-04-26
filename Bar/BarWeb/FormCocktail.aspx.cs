@@ -2,6 +2,7 @@
 using BarServiceDAL.Interfaces;
 using BarServiceDAL.ViewModels;
 using BarServiceImplement.Implementations;
+using BarServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,12 +10,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity;
 
 namespace BarWeb
 {
     public partial class FormCocktail : System.Web.UI.Page
     {
-        private readonly ICocktailService service = new CocktailServiceList();
+        private readonly ICocktailService service = UnityConfig.Container.Resolve<CocktailServiceDB>();
 
         private int id;
 
@@ -102,8 +104,8 @@ namespace BarWeb
                     service.UpdElement(new CocktailBindingModel
                     {
                         Id = id,
-                        CocktailName = textBoxName.Text,
-                        Price = Convert.ToInt32(textBoxPrice.Text),
+                        CocktailName = "Введите название",
+                        Price = 0,
                         CocktailIngredients = cocktailIngredientBM
                     });
                 }
@@ -111,7 +113,7 @@ namespace BarWeb
                 {
                     service.AddElement(new CocktailBindingModel
                     {
-                        CocktailName = "-0",
+                        CocktailName = "Введите название",
                         Price = 0,
                         CocktailIngredients = cocktailIngredientBM
                     });

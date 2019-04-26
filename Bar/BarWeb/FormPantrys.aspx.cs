@@ -2,18 +2,20 @@
 using BarServiceDAL.Interfaces;
 using BarServiceDAL.ViewModels;
 using BarServiceImplement.Implementations;
+using BarServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity;
 
 namespace BarWeb
 {
     public partial class FormPantrys : System.Web.UI.Page
     {
-        private readonly IPantryService service = new PantryServiceList();
+        private readonly IPantryService service = UnityConfig.Container.Resolve<PantryServiceDB>();
 
         List<PantryViewModel> list;
 
