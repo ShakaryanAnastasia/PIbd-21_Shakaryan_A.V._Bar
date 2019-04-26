@@ -18,7 +18,12 @@ namespace BarModel
         [Required]
         public string HabitueFIO { get; set; }
 
+        public string Mail { get; set; }
+
         [ForeignKey("HabitueId")]
         public virtual List<Booking> Bookings { get; set; }
+
+        [ForeignKey("HabitueId")]
+        public virtual List<MessageInfo> MessageInfos { get; set; }
     }
 }
