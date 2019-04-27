@@ -104,7 +104,7 @@ namespace BarView
                 {
                     if (response.StartsWith("From:"))
                     {
-                        from = response.Substring(6);
+                        from = response.Substring(31);
                     }
                     if (response.StartsWith("Date:"))
                     {
@@ -117,7 +117,7 @@ namespace BarView
                     if (response.StartsWith("Subject:"))
                     {
                         orderSubjectMessage = GetSubject(ref response, ref coding);
-                        orderBodyMessage = GetBody(response, coding);
+                       // orderBodyMessage = GetBody(response, coding);
                     }
                     if (!string.IsNullOrEmpty(messageId) && !string.IsNullOrEmpty(from)
                     &&
@@ -139,6 +139,8 @@ namespace BarView
                         orderSubjectMessage = string.Empty;
                         orderBodyMessage = string.Empty;
                     }
+                    from = from.TrimEnd('>');
+                    from = from.TrimStart('<');
                 }
             }
         }
@@ -151,13 +153,12 @@ namespace BarView
         private static string GetSubject(ref string response, ref string coding)
         {
             StringBuilder subject = new StringBuilder(response);
-            while (!response.StartsWith("To:"))
+            while (!response.StartsWith("MIME-Version:"))
             {
                 response = reader.ReadLine();
                 subject.Append(response);
             }
-            MatchCollection rr = Regex.Matches(subject.ToString(),
-            @"(?:=\?)([^\?]+)(?:\?B\?)([^\?]*)(?:\?=)");
+            MatchCollection rr = Regex.Matches(subject.ToString(),@"(?:=\?)([^\?]+)(?:\?B\?)([^\?]*)(?:\?=)");
             if (rr.Count > 0)
             {
                 coding = rr[0].Groups[1].Value;
