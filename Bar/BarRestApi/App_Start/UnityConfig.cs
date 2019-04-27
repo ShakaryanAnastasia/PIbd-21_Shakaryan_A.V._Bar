@@ -62,6 +62,8 @@ HierarchicalLifetimeManager());
             HierarchicalLifetimeManager());
             container.RegisterType<IBartenderService, BartenderServiceDB>(new
             HierarchicalLifetimeManager());
+            container.RegisterType<IMessageInfoService, MessageInfoServiceDB>(new
+            HierarchicalLifetimeManager());
         }
     }
 }

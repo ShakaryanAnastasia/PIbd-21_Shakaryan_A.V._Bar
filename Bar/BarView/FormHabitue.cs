@@ -75,7 +75,7 @@ namespace BarView
             if (id.HasValue)
             {
                 APIClient.PostRequest<HabitueBindingModel,
-                bool>("api/Component/UpdElement", new HabitueBindingModel
+                bool>("api/Habitue/UpdElement", new HabitueBindingModel
                 {
                     Id = id.Value,
                     HabitueFIO = fio,
@@ -85,7 +85,7 @@ namespace BarView
             else
             {
                 APIClient.PostRequest<HabitueBindingModel,
-                bool>("api/Component/AddElement", new HabitueBindingModel
+                bool>("api/Habitue/AddElement", new HabitueBindingModel
                 {
                     HabitueFIO = fio,
                     Mail = mail
