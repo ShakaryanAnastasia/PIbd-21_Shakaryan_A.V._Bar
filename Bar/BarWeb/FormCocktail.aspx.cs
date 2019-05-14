@@ -217,7 +217,6 @@ namespace BarWeb
                         Count = cocktailIngredients[i].Count
                     });
                 }
-                //service.DelElement(service.GetList().Last().Id);
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
                     service.UpdElement(new CocktailBindingModel
