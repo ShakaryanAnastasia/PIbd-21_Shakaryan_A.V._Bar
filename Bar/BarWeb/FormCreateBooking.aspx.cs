@@ -68,12 +68,6 @@ namespace BarWeb
                 }
             }
         }
-
-        //protected void DropDownListService_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    CalcSum();
-        //}
-
         protected void TextBoxCount_TextChanged(object sender, EventArgs e)
         {
             CalcSum();
