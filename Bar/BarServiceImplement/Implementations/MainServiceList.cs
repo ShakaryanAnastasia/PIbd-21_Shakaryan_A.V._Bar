@@ -66,7 +66,7 @@ namespace BarServiceImplement.Implementations
             {
                 if (source.Bookings[i].Id > maxId)
                 {
-                    maxId = source.Habitues[i].Id;
+                    maxId = source.Bookings[i].Id;
                 }
             }
             source.Bookings.Add(new Booking
