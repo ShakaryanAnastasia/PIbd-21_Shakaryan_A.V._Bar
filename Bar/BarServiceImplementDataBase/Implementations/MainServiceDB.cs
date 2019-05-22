@@ -167,5 +167,17 @@ namespace BarServiceImplementDataBase.Implementations
             }
             context.SaveChanges();
         }
+
+        public List<IngredientViewModel> GetListIngr()
+        {
+            List<IngredientViewModel> result = context.Ingredients
+                .Select(rec => new IngredientViewModel
+                {
+                    Id = rec.Id,
+                    IngredientName = rec.IngredientName
+                })
+                .ToList();
+            return result;
+        }
     }
 }

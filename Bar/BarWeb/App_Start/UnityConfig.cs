@@ -52,6 +52,7 @@ namespace BarWeb
             container.RegisterType<ICocktailService, CocktailServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IMainService, MainServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IPantryService, PantryServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<IRecordService, RecordServiceDB>(new HierarchicalLifetimeManager());
         }
     }
 }

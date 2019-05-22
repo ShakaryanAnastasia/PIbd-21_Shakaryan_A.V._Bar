@@ -4,9 +4,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-<style type="text/css">
+    <style type="text/css">
         #form1 {
             height: 666px;
             width: 1067px;
@@ -22,9 +22,14 @@
                     <asp:MenuItem Text="Завсегдатаи" Value="Завсегдатаи" NavigateUrl="~/FormHabitues.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="Ингредиенты" Value="Ингредиенты" NavigateUrl="~/FormIngredients.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="Коктейль" Value="Коктейль" NavigateUrl="~/FormCocktails.aspx"></asp:MenuItem>
-                <asp:MenuItem Text="Кладовые" Value="Кладовые" NavigateUrl="~/FormPantrys.aspx"></asp:MenuItem>
-                     </asp:MenuItem>
+                    <asp:MenuItem Text="Кладовые" Value="Кладовые" NavigateUrl="~/FormPantrys.aspx"></asp:MenuItem>
+                </asp:MenuItem>
                 <asp:MenuItem Text="Пополнить кладовую" Value="Пополнить кладовую" NavigateUrl="~/FormPutOnPantry.aspx"></asp:MenuItem>
+                <asp:MenuItem Text="Отчеты" Value="Отчеты">
+                    <asp:MenuItem NavigateUrl="~/FormPrice.aspx" Text="Прайс коктейлей" Value="Прайс коктейлей"></asp:MenuItem>
+                    <asp:MenuItem NavigateUrl="~/FormPantrysLoad.aspx" Text="Загруженность кладовых" Value="Загруженность кладовых"></asp:MenuItem>
+                    <asp:MenuItem NavigateUrl="~/FormHabitueBookings.aspx" Text="Заказы завсегдатаев" Value="Заказы завсегдатаев"></asp:MenuItem>
+                </asp:MenuItem>
             </Items>
         </asp:Menu>
         <asp:Button ID="ButtonCreateBooking" runat="server" Text="Создать заказ" OnClick="ButtonCreateBooking_Click" />
