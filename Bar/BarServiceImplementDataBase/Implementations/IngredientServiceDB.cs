@@ -5,8 +5,6 @@ using BarServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BarServiceImplementDataBase.Implementations
 {
@@ -51,7 +49,7 @@ namespace BarServiceImplementDataBase.Implementations
             model.IngredientName);
             if (ingredient != null)
             {
-                throw new Exception("Уже есть компонент с таким названием");
+                throw new Exception("Уже есть ингредиент с таким названием");
             }
             context.Ingredients.Add(new Ingredient
             {
@@ -65,7 +63,7 @@ namespace BarServiceImplementDataBase.Implementations
             model.IngredientName && rec.Id != model.Id);
             if (ingredient != null)
             {
-                throw new Exception("Уже есть компонент с таким названием");
+                throw new Exception("Уже есть ингредиент с таким названием");
             }
             ingredient = context.Ingredients.FirstOrDefault(rec => rec.Id == model.Id);
             if (ingredient == null)

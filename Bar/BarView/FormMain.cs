@@ -20,11 +20,13 @@ namespace BarView
         public new IUnityContainer Container { get; set; }
 
         private readonly IMainService service;
+        private IRecordService recordService;
 
-        public FormMain(IMainService service)
+        public FormMain(IMainService service, IRecordService recordService)
         {
             InitializeComponent();
             this.service = service;
+            this.recordService = recordService;
         }
 
         private void LoadData()
@@ -76,6 +78,42 @@ namespace BarView
         private void пополнитьКладовуюToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormPutOnPantry>();
+            form.ShowDialog();
+        }
+
+        private void прайсКоктейлейToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Filter = "doc|*.doc|docx|*.docx"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    recordService.SaveCocktailPrice(new RecordBindingModel
+                    {
+                        FileName = sfd.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void загруженностьКладовыхToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormPantrysLoad>();
+            form.ShowDialog();
+        }
+        private void заказыЗавсегдатаевToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormHabitueBookings>();
             form.ShowDialog();
         }
 

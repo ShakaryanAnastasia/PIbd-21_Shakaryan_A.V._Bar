@@ -42,6 +42,9 @@ HierarchicalLifetimeManager());
             currentContainer.RegisterType<IPantryService, PantryServiceDB>(new
             HierarchicalLifetimeManager());
 
+            currentContainer.RegisterType<IRecordService, RecordServiceDB>(new
+            HierarchicalLifetimeManager());
+
             return currentContainer;
         }
     }
