@@ -10,25 +10,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+
 
 namespace BarView
 {
     public partial class FormHabitue : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
         public int Id { set { id = value; } }
-
-        private readonly IHabitueService service;
 
         private int? id;
 
-        public FormHabitue(IHabitueService service)
+        public FormHabitue()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void FormHabitue_Load(object sender, EventArgs e)
@@ -37,15 +31,14 @@ namespace BarView
             {
                 try
                 {
-                    HabitueViewModel view = service.GetElement(id.Value);
-                    if (view != null)
-                    {
-                        textBoxFIO.Text = view.HabitueFIO;
-                    }
+                    HabitueViewModel habitue =
+                    APIHabitue.GetRequest<HabitueViewModel>("api/Habitue/Get/" + id.Value);
+                    textBoxFIO.Text = habitue.HabitueFIO;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 }
             }
         }
@@ -60,12 +53,17 @@ namespace BarView
             {
                 if (id.HasValue)
                 {
-                    service.UpdElement(new HabitueBindingModel
+                    APIHabitue.PostRequest<HabitueBindingModel,
+                    bool>("api/Habitue/UpdElement", new HabitueBindingModel
                     { Id = id.Value, HabitueFIO = textBoxFIO.Text });
                 }
                 else
                 {
-                    service.AddElement(new HabitueBindingModel { HabitueFIO = textBoxFIO.Text });
+                    APIHabitue.PostRequest<HabitueBindingModel,
+                    bool>("api/Habitue/AddElement", new HabitueBindingModel
+                    {
+                        HabitueFIO = textBoxFIO.Text
+                    });
                 }
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information); DialogResult = DialogResult.OK; Close();
             }

@@ -1,4 +1,5 @@
-﻿using BarServiceDAL.Interfaces;
+﻿using BarServiceDAL.BindingModels;
+using BarServiceDAL.Interfaces;
 using BarServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,18 +10,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+
 
 namespace BarView
 {
     public partial class FormPantrys : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
-        private readonly IPantryService service;
-
-        public FormPantrys(IPantryService service) { InitializeComponent(); this.service = service; }
+        public FormPantrys()
+        {
+            InitializeComponent();
+        }
 
         private void FormPantrys_Load(object sender, EventArgs e)
         {
@@ -30,7 +29,7 @@ namespace BarView
         {
             try
             {
-                List<PantryViewModel> list = service.GetList();
+                List<PantryViewModel> list = APIHabitue.GetRequest<List<PantryViewModel>>("api/Pantry/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -48,7 +47,7 @@ namespace BarView
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormPantry>();
+            var form = new FormPantry();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadData();
@@ -59,8 +58,10 @@ namespace BarView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var form = Container.Resolve<FormPantry>();
-                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                var form = new FormPantry
+                {
+                    Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value)
+                };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LoadData();
@@ -79,7 +80,8 @@ namespace BarView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        service.DelElement(id);
+                        APIHabitue.PostRequest<PantryBindingModel,
+                        bool>("api/Pantry/DelElement", new PantryBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
@@ -94,6 +96,5 @@ namespace BarView
         {
             LoadData();
         }
-
     }
 }

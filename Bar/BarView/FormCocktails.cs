@@ -1,4 +1,5 @@
-﻿using BarServiceDAL.Interfaces;
+﻿using BarServiceDAL.BindingModels;
+using BarServiceDAL.Interfaces;
 using BarServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,94 +10,90 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+
 
 namespace BarView
 {
-   
-        public partial class FormCocktails : Form
+    public partial class FormCocktails : Form
+    {
+        public FormCocktails()
         {
-            [Dependency]
-            public new IUnityContainer Container { get; set; }
+            InitializeComponent();
+        }
 
-            private readonly ICocktailService service;
+        private void FormCocktails_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+        private void LoadData()
+        {
+            try
+            {
+                List<CocktailViewModel> list = APIHabitue.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList");
+                if (list != null)
+                {
+                    dataGridView.DataSource = list;
+                    dataGridView.Columns[0].Visible = false;
+                    dataGridView.Columns[1].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.Fill;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }
+        }
 
-            public FormCocktails(ICocktailService service) { InitializeComponent(); this.service = service; }
-
-            private void FormCocktails_Load(object sender, EventArgs e)
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            var form = new FormCocktail();
+            if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadData();
             }
-            private void LoadData()
-            {
-                try
-                {
-                    List<CocktailViewModel> list = service.GetList();
-                    if (list != null)
-                    {
-                        dataGridView.DataSource = list;
-                        dataGridView.Columns[0].Visible = false;
-                        dataGridView.Columns[1].AutoSizeMode =
-                        DataGridViewAutoSizeColumnMode.Fill;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                }
-            }
+        }
 
-            private void buttonAdd_Click(object sender, EventArgs e)
+        private void buttonUpd_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.SelectedRows.Count == 1)
             {
-                var form = Container.Resolve<FormCocktail>();
+                var form = new FormCocktail();
+                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LoadData();
                 }
             }
-
-            private void buttonUpd_Click(object sender, EventArgs e)
-            {
-                if (dataGridView.SelectedRows.Count == 1)
-                {
-                    var form = Container.Resolve<FormCocktail>();
-                    form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        LoadData();
-                    }
-                }
-            }
-
-            private void buttonDel_Click(object sender, EventArgs e)
-            {
-                if (dataGridView.SelectedRows.Count == 1)
-                {
-                    if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        int id =
-                        Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                        try
-                        {
-                            service.DelElement(id);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                        }
-                        LoadData();
-                    }
-                }
-            }
-
-            private void buttonRef_Click(object sender, EventArgs e)
-            {
-                LoadData();
-            }
-
         }
-    
+
+        private void buttonDel_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.SelectedRows.Count == 1)
+            {
+                if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    int id =
+                    Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                    try
+                    {
+                        APIHabitue.PostRequest<CocktailBindingModel,
+                        bool>("api/Cocktail/DelElement", new CocktailBindingModel { Id = id });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    }
+                    LoadData();
+                }
+            }
+        }
+
+        private void buttonRef_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+    }
 }

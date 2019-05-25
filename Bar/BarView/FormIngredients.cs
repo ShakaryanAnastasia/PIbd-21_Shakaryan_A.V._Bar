@@ -1,4 +1,5 @@
-﻿using BarServiceDAL.Interfaces;
+﻿using BarServiceDAL.BindingModels;
+using BarServiceDAL.Interfaces;
 using BarServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,18 +10,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+
 
 namespace BarView
 {
     public partial class FormIngredients : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
-        private readonly IIngredientService service;
-
-        public FormIngredients(IIngredientService service) { InitializeComponent(); this.service = service; }
+        public FormIngredients()
+        {
+            InitializeComponent();
+        }
 
         private void FormIngredients_Load(object sender, EventArgs e)
         {
@@ -30,7 +29,7 @@ namespace BarView
         {
             try
             {
-                List<IngredientViewModel> list = service.GetList();
+                List<IngredientViewModel> list = APIHabitue.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -48,7 +47,7 @@ namespace BarView
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormIngredient>();
+            var form = new FormIngredient();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadData();
@@ -59,8 +58,10 @@ namespace BarView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var form = Container.Resolve<FormIngredient>();
-                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                var form = new FormIngredient
+                {
+                    Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value)
+                };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LoadData();
@@ -79,7 +80,8 @@ namespace BarView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        service.DelElement(id);
+                        APIHabitue.PostRequest<IngredientBindingModel,
+                        bool>("api/Ingredient/DelElement", new IngredientBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
