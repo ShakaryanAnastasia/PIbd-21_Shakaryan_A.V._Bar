@@ -15,8 +15,6 @@ namespace BarWeb
 {
     public partial class FormPantrys : System.Web.UI.Page
     {
-        private readonly IPantryService service = UnityConfig.Container.Resolve<PantryServiceDB>();
-
         List<PantryViewModel> list;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -28,8 +26,11 @@ namespace BarWeb
         {
             try
             {
-                list = service.GetList();
-                dataGridView.Columns[0].Visible = false;
+                list = APIClient.GetRequest<List<PantryViewModel>>("api/Pantry/GetList");
+                if (list != null)
+                {
+                    dataGridView.Columns[0].Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -59,7 +60,7 @@ namespace BarWeb
                 int id = list[dataGridView.SelectedIndex].Id;
                 try
                 {
-                    service.DelElement(id);
+                    APIClient.PostRequest<PantryBindingModel, bool>("api/Pantry/DelElement", new PantryBindingModel { Id = id });
                 }
                 catch (Exception ex)
                 {

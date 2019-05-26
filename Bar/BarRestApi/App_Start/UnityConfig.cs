@@ -46,20 +46,13 @@ namespace BarRestApi
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType<DbContext, BarDbContext>(new
-HierarchicalLifetimeManager());
-            container.RegisterType<IHabitueService, HabitueServiceDB>(new
-            HierarchicalLifetimeManager());
-            container.RegisterType<IIngredientService, IngredientServiceDB>(new
-            HierarchicalLifetimeManager());
-            container.RegisterType<ICocktailService, CocktailServiceDB>(new
-            HierarchicalLifetimeManager());
-            container.RegisterType<IPantryService, PantryServiceDB>(new
-            HierarchicalLifetimeManager());
-            container.RegisterType<IMainService, MainServiceDB>(new
-            HierarchicalLifetimeManager());
-            container.RegisterType<IRecordService, RecordServiceDB>(new
-            HierarchicalLifetimeManager());
+            container.RegisterType<DbContext, BarWebDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<IHabitueService, HabitueServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<IIngredientService, IngredientServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICocktailService, CocktailServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<IPantryService, PantryServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<IMainService, MainServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<IRecordService, RecordServiceDB>(new HierarchicalLifetimeManager());
         }
     }
 }

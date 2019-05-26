@@ -15,19 +15,14 @@ namespace BarWeb
 {
     public partial class FormCreateBooking : System.Web.UI.Page
     {
-        private readonly IHabitueService serviceC = UnityConfig.Container.Resolve<HabitueServiceDB>();
-
-        private readonly ICocktailService serviceS = UnityConfig.Container.Resolve<CocktailServiceDB>();
-
-        private readonly IMainService serviceM = UnityConfig.Container.Resolve<MainServiceDB>();
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (!Page.IsPostBack)
             {
-                if (!Page.IsPostBack)
+                try
                 {
-                    List<HabitueViewModel> listC = serviceC.GetList();
+
+                    List<HabitueViewModel> listC = APIClient.GetRequest<List<HabitueViewModel>>("api/Habitue/GetList");
                     if (listC != null)
                     {
                         DropDownListHabitue.DataSource = listC;
@@ -35,7 +30,7 @@ namespace BarWeb
                         DropDownListHabitue.DataTextField = "HabitueFIO";
                         DropDownListHabitue.DataValueField = "Id";
                     }
-                    List<CocktailViewModel> listP = serviceS.GetList();
+                    List<CocktailViewModel> listP = APIClient.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList");
                     if (listP != null)
                     {
                         DropDownListCocktail.DataSource = listP;
@@ -44,11 +39,12 @@ namespace BarWeb
                         DropDownListCocktail.DataValueField = "Id";
                     }
                     Page.DataBind();
+
                 }
-            }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
+                catch (Exception ex)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
+                }
             }
         }
 
@@ -60,9 +56,9 @@ namespace BarWeb
                 try
                 {
                     int id = Convert.ToInt32(DropDownListCocktail.SelectedValue);
-                    CocktailViewModel product = serviceS.GetElement(id);
+                    CocktailViewModel Cocktail = APIClient.GetRequest<CocktailViewModel>("api/Cocktail/Get/" + id);
                     int count = Convert.ToInt32(TextBoxCount.Text);
-                    TextBoxSum.Text = (count * product.Price).ToString();
+                    TextBoxSum.Text = (count * Cocktail.Price).ToString();
                 }
                 catch (Exception ex)
                 {
@@ -95,7 +91,7 @@ namespace BarWeb
             }
             try
             {
-                serviceM.CreateBooking(new BookingBindingModel
+                APIClient.PostRequest<BookingBindingModel, bool>("api/Main/CreateBooking", new BookingBindingModel
                 {
                 HabitueId = Convert.ToInt32(DropDownListHabitue.SelectedValue),
                     CocktailId = Convert.ToInt32(DropDownListCocktail.SelectedValue),

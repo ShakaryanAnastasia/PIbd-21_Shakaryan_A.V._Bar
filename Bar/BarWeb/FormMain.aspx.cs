@@ -15,8 +15,6 @@ namespace BarWeb
 {
     public partial class FormMain : System.Web.UI.Page
     {
-        private readonly IMainService service = UnityConfig.Container.Resolve<MainServiceDB>();
-
         List<BookingViewModel> list;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -28,7 +26,7 @@ namespace BarWeb
         {
             try
             {
-                list = service.GetList();
+                list = APIClient.GetRequest<List<BookingViewModel>>("api/Main/GetList");
                 dataGridView1.Columns[0].Visible = false;
             }
             catch (Exception ex)
@@ -49,7 +47,10 @@ namespace BarWeb
                 try
                 {
                     int id = list[dataGridView1.SelectedIndex].Id;
-                    service.TakeBookingInWork(new BookingBindingModel { Id = id });
+                    APIClient.PostRequest<BookingBindingModel, bool>("api/Main/TakeBookingInWork", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                     Server.Transfer("FormMain.aspx");
                 }
@@ -67,7 +68,10 @@ namespace BarWeb
                 int id = list[dataGridView1.SelectedIndex].Id;
                 try
                 {
-                    service.FinishBooking(new BookingBindingModel { Id = id });
+                    APIClient.PostRequest<BookingBindingModel, bool>("api/Main/FinishBooking", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                     Server.Transfer("FormMain.aspx");
                 }
@@ -85,7 +89,10 @@ namespace BarWeb
                 int id = list[dataGridView1.SelectedIndex].Id;
                 try
                 {
-                    service.PayBooking(new BookingBindingModel { Id = id });
+                    APIClient.PostRequest<BookingBindingModel, bool>("api/Main/PayBooking", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                     Server.Transfer("FormMain.aspx");
                 }

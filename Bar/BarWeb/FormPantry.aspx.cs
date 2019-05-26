@@ -15,10 +15,6 @@ namespace BarWeb
 {
     public partial class FormPantry : System.Web.UI.Page
     {
-        public int Id { set { id = value; } }
-
-        private readonly IPantryService service = UnityConfig.Container.Resolve<PantryServiceDB>();
-
         private int id;
 
         private string name;
@@ -29,13 +25,13 @@ namespace BarWeb
             {
                 try
                 {
-                    PantryViewModel view = service.GetElement(id);
+                    PantryViewModel view = APIClient.GetRequest<PantryViewModel>("api/Pantry/Get/" + id);
                     if (view != null)
                     {
                         name = view.PantryName;
                         dataGridView.DataSource = view.PantryIngredients;
                         dataGridView.DataBind();
-                        service.UpdElement(new PantryBindingModel
+                        APIClient.PostRequest<PantryBindingModel, bool>("api/Pantry/UpdElement", new PantryBindingModel
                         {
                             Id = id,
                             PantryName = ""
@@ -44,7 +40,7 @@ namespace BarWeb
                         {
                             textBoxName.Text = name;
                         }
-                        service.UpdElement(new PantryBindingModel
+                        APIClient.PostRequest<PantryBindingModel, bool>("api/Pantry/UpdElement", new PantryBindingModel
                         {
                             Id = id,
                             PantryName = name
@@ -69,7 +65,7 @@ namespace BarWeb
             {
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
-                    service.UpdElement(new PantryBindingModel
+                    APIClient.PostRequest<PantryBindingModel, bool>("api/Pantry/UpdElement", new PantryBindingModel
                     {
                         Id = id,
                         PantryName = textBoxName.Text
@@ -77,7 +73,7 @@ namespace BarWeb
                 }
                 else
                 {
-                    service.AddElement(new PantryBindingModel
+                    APIClient.PostRequest<PantryBindingModel, bool>("api/Pantry/AddElement", new PantryBindingModel
                     {
                         PantryName = textBoxName.Text
                     });

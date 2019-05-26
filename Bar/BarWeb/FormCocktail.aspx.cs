@@ -16,8 +16,6 @@ namespace BarWeb
 {
     public partial class FormCocktail : System.Web.UI.Page
     {
-        private readonly ICocktailService service = UnityConfig.Container.Resolve<CocktailServiceDB>();
-
         private int id;
 
         private List<CocktailIngredientViewModel> cocktailIngredients;
@@ -30,7 +28,7 @@ namespace BarWeb
             {
                 try
                 {
-                    CocktailViewModel view = service.GetElement(id);
+                    CocktailViewModel view = APIClient.GetRequest<CocktailViewModel>("api/Cocktail/Get/" + id);
                     if (view != null)
                     {
                         if (!Page.IsPostBack)
@@ -101,7 +99,7 @@ namespace BarWeb
             {
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
-                    service.UpdElement(new CocktailBindingModel
+                    APIClient.PostRequest<CocktailBindingModel, bool>("api/Cocktail/UpdElement", new CocktailBindingModel
                     {
                         Id = id,
                         CocktailName = "Введите название",
@@ -111,13 +109,13 @@ namespace BarWeb
                 }
                 else
                 {
-                    service.AddElement(new CocktailBindingModel
+                    APIClient.PostRequest<CocktailBindingModel, bool>("api/Cocktail/AddElement", new CocktailBindingModel
                     {
                         CocktailName = "Введите название",
                         Price = 0,
                         CocktailIngredients = cocktailIngredientBM
                     });
-                    Session["id"] = service.GetList().Last().Id.ToString();
+                    Session["id"] = APIClient.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList").Last().Id.ToString();
                     Session["Change"] = "0";
                 }
             }
@@ -156,7 +154,7 @@ namespace BarWeb
         {
             if (dataGridView.SelectedIndex >= 0)
             {
-                model = service.GetElement(id).CocktailIngredients[dataGridView.SelectedIndex];
+                model = APIClient.GetRequest<CocktailViewModel>("api/Cocktail/Get/" + id).CocktailIngredients[dataGridView.SelectedIndex];
                 Session["SEId"] = model.Id;
                 Session["SECocktailId"] = model.CocktailId;
                 Session["SEIngredientId"] = model.IngredientId;
@@ -221,7 +219,7 @@ namespace BarWeb
                 }
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
-                    service.UpdElement(new CocktailBindingModel
+                    APIClient.PostRequest<CocktailBindingModel, bool>("api/Cocktail/UpdElement", new CocktailBindingModel
                     {
                         Id = id,
                         CocktailName = textBoxName.Text,
@@ -231,7 +229,7 @@ namespace BarWeb
                 }
                 else
                 {
-                    service.AddElement(new CocktailBindingModel
+                    APIClient.PostRequest<CocktailBindingModel, bool>("api/Cocktail/AddElement", new CocktailBindingModel
                     {
                         CocktailName = textBoxName.Text,
                         Price = Convert.ToInt32(textBoxPrice.Text),
@@ -251,13 +249,14 @@ namespace BarWeb
 
         protected void ButtonCancel_Click(object sender, EventArgs e)
         {
-            if (service.GetList().Count != 0 && service.GetList().Last().CocktailName == null)
+            if (APIClient.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList").Count != 0 && APIClient.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList").Last().CocktailName == null)
             {
-                service.DelElement(service.GetList().Last().Id);
+                APIClient.PostRequest<CocktailBindingModel, bool>("api/Cocktail/DelElement", new CocktailBindingModel { Id = APIClient.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList").Last().Id });
             }
             if (!String.Equals(Session["Change"], null))
             {
-                service.DelElement(id);
+                APIClient.PostRequest<CocktailBindingModel, bool>("api/Cocktail/DelElement", new CocktailBindingModel { Id = id });
+
             }
             Session["id"] = null;
             Session["Change"] = null;

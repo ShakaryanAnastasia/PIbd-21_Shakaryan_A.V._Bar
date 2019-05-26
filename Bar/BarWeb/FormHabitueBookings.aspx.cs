@@ -1,8 +1,10 @@
 ﻿using BarServiceDAL.BindingModels;
 using BarServiceDAL.Interfaces;
+using BarServiceDAL.ViewModels;
 using BarServiceImplementDataBase.Implementations;
 using Microsoft.Reporting.WebForms;
 using System;
+using System.Collections.Generic;
 using System.Web.UI;
 using Unity;
 
@@ -10,8 +12,6 @@ namespace BarWeb
 {
     public partial class FormHabitueBookings : System.Web.UI.Page
     {
-        private readonly IRecordService service = UnityConfig.Container.Resolve<RecordServiceDB>();
-
         protected void ButtonMake_Click(object sender, EventArgs e)
         {
             if (Calendar1.SelectedDate >= Calendar2.SelectedDate)
@@ -21,12 +21,21 @@ namespace BarWeb
             }
             try
             {
-                var dataSource = service.GetHabitueBookings(new RecordBindingModel
+                ReportParameter parameter = new ReportParameter("ReportParameterPeriod",
+                                               "c " + Calendar1.SelectedDate.ToShortDateString() +
+                                               " по " + Calendar2.SelectedDate.ToShortDateString());
+
+
+                ReportViewer1.LocalReport.SetParameters(parameter);
+
+                List<HabitueBookingsModel> response = APIClient.PostRequest<RecordBindingModel,
+                List<HabitueBookingsModel>>("api/Record/GetHabitueBookings", new RecordBindingModel
                 {
                     DateFrom = Calendar1.SelectedDate,
                     DateTo = Calendar2.SelectedDate
                 });
-                ReportDataSource source = new ReportDataSource("DataSetBookings", dataSource);
+
+                ReportDataSource source = new ReportDataSource("DataSetBookings", response);
                 ReportViewer1.LocalReport.DataSources.Add(source);
                 ReportViewer1.DataBind();
             }
@@ -47,7 +56,7 @@ namespace BarWeb
             Response.ContentEncoding = System.Text.Encoding.UTF8;
             try
             {
-                service.SaveHabitueBookings(new RecordBindingModel
+                APIClient.PostRequest<RecordBindingModel, bool>("api/Record/SaveHabitueBookings", new RecordBindingModel
                 {
                     FileName = path,
                     DateFrom = Calendar1.SelectedDate,

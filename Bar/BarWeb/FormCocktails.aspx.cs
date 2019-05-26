@@ -9,13 +9,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BarServiceImplementDataBase.Implementations;
 using Unity;
+using BarServiceDAL.BindingModels;
 
 namespace BarWeb
 {
     public partial class FormCocktails : System.Web.UI.Page
     {
-        private readonly ICocktailService service = UnityConfig.Container.Resolve<CocktailServiceDB>();
-
         List<CocktailViewModel> list;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -27,8 +26,11 @@ namespace BarWeb
         {
             try
             {
-                list = service.GetList();
-                dataGridView.Columns[0].Visible = false;
+                list = APIClient.GetRequest<List<CocktailViewModel>>("api/Cocktail/GetList");
+                if (list != null)
+                {
+                    dataGridView.Columns[0].Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -58,7 +60,7 @@ namespace BarWeb
                 int id = list[dataGridView.SelectedIndex].Id;
                 try
                 {
-                    service.DelElement(id);
+                    APIClient.PostRequest<CocktailBindingModel, bool>("api/Cocktail/DelElement", new CocktailBindingModel { Id = id });
                 }
                 catch (Exception ex)
                 {

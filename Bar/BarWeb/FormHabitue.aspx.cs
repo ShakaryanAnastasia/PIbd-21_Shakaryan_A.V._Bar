@@ -15,10 +15,6 @@ namespace BarWeb
 {
     public partial class FormHabitue : System.Web.UI.Page
     {
-        public int Id { set { id = value; } }
-
-        private readonly IHabitueService service = UnityConfig.Container.Resolve<HabitueServiceDB>();
-
         private int id;
 
         private string name;
@@ -29,11 +25,11 @@ namespace BarWeb
             {
                 try
                 {
-                    HabitueViewModel view = service.GetElement(id);
+                    HabitueViewModel view = APIClient.GetRequest<HabitueViewModel>("api/Habitue/Get/" + id);
                     if (view != null)
                     {
                         name = view.HabitueFIO;
-                        service.UpdElement(new HabitueBindingModel
+                        APIClient.PostRequest<HabitueBindingModel, bool>("api/Habitue/UpdElement", new HabitueBindingModel
                         {
                             Id = id,
                             HabitueFIO = ""
@@ -42,7 +38,7 @@ namespace BarWeb
                         {
                             textBoxName.Text = name;
                         }
-                        service.UpdElement(new HabitueBindingModel
+                        APIClient.PostRequest<HabitueBindingModel, bool>("api/Habitue/UpdElement", new HabitueBindingModel
                         {
                             Id = id,
                             HabitueFIO = name
@@ -67,7 +63,7 @@ namespace BarWeb
             {
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
-                    service.UpdElement(new HabitueBindingModel
+                    APIClient.PostRequest<HabitueBindingModel, bool>("api/Habitue/UpdElement", new HabitueBindingModel
                     {
                         Id = id,
                         HabitueFIO = textBoxName.Text
@@ -75,7 +71,7 @@ namespace BarWeb
                 }
                 else
                 {
-                    service.AddElement(new HabitueBindingModel
+                    APIClient.PostRequest<HabitueBindingModel, bool>("api/Habitue/AddElement", new HabitueBindingModel
                     {
                         HabitueFIO = textBoxName.Text
                     });

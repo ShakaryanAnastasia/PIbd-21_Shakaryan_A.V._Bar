@@ -15,19 +15,13 @@ namespace BarWeb
 {
     public partial class FormPutOnPantry : System.Web.UI.Page
     {
-        private readonly IPantryService serviceS = UnityConfig.Container.Resolve<PantryServiceDB>();
-
-        private readonly IIngredientService serviceI = UnityConfig.Container.Resolve<IngredientServiceDB>();
-
-        private readonly IMainService serviceM = UnityConfig.Container.Resolve<MainServiceDB>();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 try
                 {
-                    List<IngredientViewModel> listI = serviceI.GetList();
+                    List<IngredientViewModel> listI = APIClient.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                     if (listI != null)
                     {
                         DropDownListIngredient.DataSource = listI;
@@ -35,7 +29,7 @@ namespace BarWeb
                         DropDownListIngredient.DataTextField = "IngredientName";
                         DropDownListIngredient.DataValueField = "Id";
                     }
-                    List<PantryViewModel> listS = serviceS.GetList();
+                    List<PantryViewModel> listS = APIClient.GetRequest<List<PantryViewModel>>("api/Pantry/GetList");
                     if (listS != null)
                     {
                         DropDownListPantry.DataSource = listS;
@@ -71,7 +65,7 @@ namespace BarWeb
             }
             try
             {
-                serviceM.PutIngredientOnPantry(new PantryIngredientBindingModel
+                APIClient.PostRequest<PantryIngredientBindingModel, bool>("api/Main/PutIngredientOnPantry", new PantryIngredientBindingModel
                 {
                     IngredientId = Convert.ToInt32(DropDownListIngredient.SelectedValue),
                     PantryId = Convert.ToInt32(DropDownListPantry.SelectedValue),

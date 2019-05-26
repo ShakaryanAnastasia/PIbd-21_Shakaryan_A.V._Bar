@@ -14,8 +14,6 @@ namespace BarWeb
 {
     public partial class FormCocktailIngredient : System.Web.UI.Page
     {
-        private readonly IIngredientService service = UnityConfig.Container.Resolve<IngredientServiceDB>();
-
         private CocktailIngredientViewModel model;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -25,7 +23,7 @@ namespace BarWeb
                 if (!Page.IsPostBack)
             
                 {
-                List<IngredientViewModel> list = service.GetList();
+                    List<IngredientViewModel> list = APIClient.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                     if (list != null)
                     {
                         DropDownListIngredient.DataSource = list;

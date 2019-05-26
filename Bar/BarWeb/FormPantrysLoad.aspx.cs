@@ -1,7 +1,9 @@
 ﻿using BarServiceDAL.BindingModels;
 using BarServiceDAL.Interfaces;
+using BarServiceDAL.ViewModels;
 using BarServiceImplementDataBase.Implementations;
 using System;
+using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Unity;
@@ -10,8 +12,6 @@ namespace BarWeb
 {
     public partial class FormPantrysLoad : System.Web.UI.Page
     {
-        private readonly IRecordService service = UnityConfig.Container.Resolve<RecordServiceDB>();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -23,7 +23,7 @@ namespace BarWeb
                 Table.Rows[0].Cells[1].Text = "Ингредиент";
                 Table.Rows[0].Cells.Add(new TableCell());
                 Table.Rows[0].Cells[2].Text = "Количество";
-                var dict = service.GetPantrysLoad();
+                var dict = APIClient.GetRequest<List<PantrysLoadViewModel>>("api/Record/GetPantrysLoad");
                 if (dict != null)
                 {
                     int i = 1;
@@ -77,7 +77,7 @@ namespace BarWeb
             Response.ContentEncoding = System.Text.Encoding.UTF8;
             try
             {
-                service.SavePantrysLoad(new RecordBindingModel
+                APIClient.PostRequest<RecordBindingModel, bool>("api/Record/SaveStoragesLoad", new RecordBindingModel
                 {
                     FileName = path
                 });
