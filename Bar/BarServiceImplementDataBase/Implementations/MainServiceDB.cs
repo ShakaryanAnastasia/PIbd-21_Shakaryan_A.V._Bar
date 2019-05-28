@@ -61,10 +61,10 @@ namespace BarServiceImplementDataBase.Implementations
                 Sum = model.Sum,
                 Status = BookingStatus.Принят
             };
-context.Bookings.Add(booking);
+            context.Bookings.Add(booking);
             context.SaveChanges();
-            var client = context.Habitues.FirstOrDefault(x => x.Id == model.HabitueId);
-            SendEmail(client.Mail, "Оповещение по заказам", string.Format("Заказ №{0} от{ 1} создан успешно", booking.Id, booking.DateCreate.ToShortDateString()));
+            var habitue = context.Habitues.FirstOrDefault(x => x.Id == model.HabitueId);
+            SendEmail(habitue.Mail, "Оповещение по заказам", string.Format("Заказ №{0} от {1} создан успешно", booking.Id, booking.DateCreate.ToShortDateString()));
         }
         public void TakeBookingInWork(BookingBindingModel model)
         {
@@ -118,9 +118,7 @@ context.Bookings.Add(booking);
                     element.DateImplement = DateTime.Now;
                     element.Status = BookingStatus.Смешивается;
                     context.SaveChanges();
-                    SendEmail(element.Habitue.Mail, "Оповещение по заказам",
-string.Format("Заказ №{0} от {1} передеан в работу", element.Id,
-element.DateCreate.ToShortDateString()));
+                    SendEmail(element.Habitue.Mail, "Оповещение по заказам", string.Format("Заказ №{0} от {1} передан в работу", element.Id, element.DateCreate.ToShortDateString()));
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -147,7 +145,7 @@ element.DateCreate.ToShortDateString()));
             }
             element.Status = BookingStatus.Смешан;
             context.SaveChanges();
-            SendEmail(element.Habitue.Mail, "Оповещение по заказам", string.Format("Заказ №{ 0} от { 1} передан на оплату", element.Id, element.DateCreate.ToShortDateString()));
+            SendEmail(element.Habitue.Mail, "Оповещение по заказам", string.Format("Заказ №{0} от {1} передан на оплату", element.Id, element.DateCreate.ToShortDateString()));
         }
         public void PayBooking(BookingBindingModel model)
         {
@@ -162,7 +160,7 @@ element.DateCreate.ToShortDateString()));
             }
             element.Status = BookingStatus.Оплачен;
             context.SaveChanges();
-            SendEmail(element.Habitue.Mail, "Оповещение по заказам", string.Format("Заказ №{ 0} от { 1} оплачен успешно", element.Id, element.DateCreate.ToShortDateString()));
+            SendEmail(element.Habitue.Mail, "Оповещение по заказам", string.Format("Заказ №{0} от {1} оплачен успешно", element.Id, element.DateCreate.ToShortDateString()));
         }
         public void PutIngredientOnPantry(PantryIngredientBindingModel model)
         {
