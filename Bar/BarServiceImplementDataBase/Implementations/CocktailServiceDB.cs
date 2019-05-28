@@ -12,10 +12,14 @@ namespace BarServiceImplementDataBase.Implementations
 {
     public class CocktailServiceDB : ICocktailService
     {
-        private BarDbContext context;
-        public CocktailServiceDB(BarDbContext context)
+        private BarWebDbContext context;
+        public CocktailServiceDB(BarWebDbContext context)
         {
             this.context = context;
+        }
+        public CocktailServiceDB()
+        {
+            this.context = new BarWebDbContext();
         }
         public List<CocktailViewModel> GetList()
         {

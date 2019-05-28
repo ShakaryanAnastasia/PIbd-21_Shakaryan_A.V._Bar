@@ -5,14 +5,14 @@ namespace BarServiceImplementDataBase.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<BarServiceImplementDataBase.BarDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<BarServiceImplementDataBase.BarWebDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(BarServiceImplementDataBase.BarDbContext context)
+        protected override void Seed(BarServiceImplementDataBase.BarWebDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

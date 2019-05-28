@@ -13,7 +13,7 @@ namespace BarServiceImplementDataBase.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201903151318125_FirstMigration"; }
+            get { return "201905221032324_FirstMigration"; }
         }
         
         string IMigrationMetadata.Source

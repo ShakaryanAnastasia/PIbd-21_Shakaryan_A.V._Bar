@@ -1,4 +1,4 @@
-using BarServiceDAL.Interfaces;
+﻿using BarServiceDAL.Interfaces;
 using BarServiceImplementDataBase;
 using BarServiceImplementDataBase.Implementations;
 using System;
@@ -6,12 +6,12 @@ using System.Data.Entity;
 using Unity;
 using Unity.Lifetime;
 
-namespace BarRestApi
+namespace BarWeb
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.
     /// </summary>
-    public static class UnityConfig
+    public class UnityConfig
     {
         #region Unity Container
         private static Lazy<IUnityContainer> container =
@@ -50,8 +50,8 @@ namespace BarRestApi
             container.RegisterType<IHabitueService, HabitueServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IIngredientService, IngredientServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<ICocktailService, CocktailServiceDB>(new HierarchicalLifetimeManager());
-            container.RegisterType<IPantryService, PantryServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IMainService, MainServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<IPantryService, PantryServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IRecordService, RecordServiceDB>(new HierarchicalLifetimeManager());
         }
     }

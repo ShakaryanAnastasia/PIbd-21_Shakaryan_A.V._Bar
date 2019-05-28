@@ -12,10 +12,14 @@ namespace BarServiceImplementDataBase.Implementations
 {
     public class MainServiceDB : IMainService
     {
-        private BarDbContext context;
-        public MainServiceDB(BarDbContext context)
+        private BarWebDbContext context;
+        public MainServiceDB(BarWebDbContext context)
         {
             this.context = context;
+        }
+        public MainServiceDB()
+        {
+            this.context = new BarWebDbContext();
         }
         public List<BookingViewModel> GetList()
         {
@@ -162,6 +166,18 @@ namespace BarServiceImplementDataBase.Implementations
                 });
             }
             context.SaveChanges();
+        }
+
+        public List<IngredientViewModel> GetListIngr()
+        {
+            List<IngredientViewModel> result = context.Ingredients
+                .Select(rec => new IngredientViewModel
+                {
+                    Id = rec.Id,
+                    IngredientName = rec.IngredientName
+                })
+                .ToList();
+            return result;
         }
     }
 }
