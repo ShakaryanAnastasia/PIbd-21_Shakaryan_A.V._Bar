@@ -1,17 +1,21 @@
-﻿using BarServiceDAL.BindingModels;
+﻿using BarServiceDAL.Attributies;
+using BarServiceDAL.BindingModels;
 using BarServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BarServiceDAL.Interfaces
 {
-   public interface IMessageInfoService
+    [CustomInterface("Интерфейс для работы с письмами")]
+    public interface IMessageInfoService
     {
+        [CustomMethod("Метод получения списка писем")]
         List<MessageInfoViewModel> GetList();
+
+        [CustomMethod("Метод получения письма по id")]
         MessageInfoViewModel GetElement(int id);
+
+        [CustomMethod("Метод создания письма")]
         void AddElement(MessageInfoBindingModel model);
     }
 }

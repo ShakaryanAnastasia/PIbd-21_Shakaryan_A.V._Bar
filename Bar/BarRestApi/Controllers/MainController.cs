@@ -71,5 +71,18 @@ namespace BarRestApi.Controllers
                 new WorkBartender(_service, _serviceBartender, impl.Id, booking.Id);
             }
         }
+
+        [HttpGet]
+
+        public IHttpActionResult GetInfo()
+        {
+            ReflectionService service = new ReflectionService();
+            var list = service.GetInfoByAssembly();
+            if (list == null)
+            {
+                InternalServerError(new Exception("Нет данных"));
+            }
+            return Ok(list);
+        }
     }
 }
