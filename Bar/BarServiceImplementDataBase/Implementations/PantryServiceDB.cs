@@ -12,10 +12,14 @@ namespace BarServiceImplementDataBase.Implementations
 {
     public class PantryServiceDB : IPantryService
     {
-        private BarDbContext context;
-        public PantryServiceDB(BarDbContext context)
+        private BarWebDbContext context;
+        public PantryServiceDB(BarWebDbContext context)
         {
             this.context = context;
+        }
+        public PantryServiceDB()
+        {
+            this.context = new BarWebDbContext();
         }
         public List<PantryViewModel> GetList()
         {

@@ -29,7 +29,7 @@ namespace BarView
         public static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
-            currentContainer.RegisterType<DbContext, BarDbContext>(new
+            currentContainer.RegisterType<DbContext, BarWebDbContext>(new
 HierarchicalLifetimeManager());
             currentContainer.RegisterType<IHabitueService, HabitueServiceDB>(new
             HierarchicalLifetimeManager());

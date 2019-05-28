@@ -16,11 +16,17 @@ namespace BarServiceImplementDataBase.Implementations
 {
     public class RecordServiceDB : IRecordService
     {
-        private BarDbContext context;
-        public RecordServiceDB(BarDbContext context)
+        private BarWebDbContext context;
+        public RecordServiceDB(BarWebDbContext context)
         {
             this.context = context;
         }
+
+        public RecordServiceDB()
+        {
+            this.context = new BarWebDbContext();
+        }
+
         public void SaveCocktailPrice(RecordBindingModel model)
         {
             if (File.Exists(model.FileName))
@@ -241,26 +247,50 @@ new PantrysLoadViewModel
         }
         public List<HabitueBookingsModel> GetHabitueBookings(RecordBindingModel model)
         {
-            return context.Bookings
-            .Include(rec => rec.Habitue)
-            .Include(rec => rec.Cocktail)
-            .Where(rec => rec.DateCreate >= model.DateFrom &&
-            rec.DateCreate <= model.DateTo)
-            .Select(rec => new HabitueBookingsModel
+            if (model != null)
             {
-                HabitueName = rec.Habitue.HabitueFIO,
-                DateCreate = SqlFunctions.DateName("dd", rec.DateCreate)
-            + " " +
-            SqlFunctions.DateName("mm", rec.DateCreate) +
-            " " +
-            SqlFunctions.DateName("yyyy",
-            rec.DateCreate),
-                CocktailName = rec.Cocktail.CocktailName,
-                Count = rec.Count,
-                Sum = rec.Sum,
-                Status = rec.Status.ToString()
-            })
-            .ToList();
+                return context.Bookings
+                .Include(rec => rec.Habitue)
+                .Include(rec => rec.Cocktail)
+                .Where(rec => rec.DateCreate >= model.DateFrom &&
+                rec.DateCreate <= model.DateTo)
+                .Select(rec => new HabitueBookingsModel
+                {
+                    HabitueName = rec.Habitue.HabitueFIO,
+                    DateCreate = SqlFunctions.DateName("dd", rec.DateCreate)
+                + " " +
+                SqlFunctions.DateName("mm", rec.DateCreate) +
+                " " +
+                SqlFunctions.DateName("yyyy",
+                rec.DateCreate),
+                    CocktailName = rec.Cocktail.CocktailName,
+                    Count = rec.Count,
+                    Sum = rec.Sum,
+                    Status = rec.Status.ToString()
+                })
+                .ToList();
+            }
+            else
+            {
+                return context.Bookings
+             .Include(rec => rec.Habitue)
+             .Include(rec => rec.Cocktail)
+             .Select(rec => new HabitueBookingsModel
+             {
+                 HabitueName = rec.Habitue.HabitueFIO,
+                 DateCreate = SqlFunctions.DateName("dd", rec.DateCreate)
+             + " " +
+             SqlFunctions.DateName("mm", rec.DateCreate) +
+             " " +
+             SqlFunctions.DateName("yyyy",
+             rec.DateCreate),
+                 CocktailName = rec.Cocktail.CocktailName,
+                 Count = rec.Count,
+                 Sum = rec.Sum,
+                 Status = rec.Status.ToString()
+             })
+             .ToList();
+            }
         }
         public void SaveHabitueBookings(RecordBindingModel model)
         {
