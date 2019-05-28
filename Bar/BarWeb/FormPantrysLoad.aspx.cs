@@ -77,7 +77,7 @@ namespace BarWeb
             Response.ContentEncoding = System.Text.Encoding.UTF8;
             try
             {
-                APIClient.PostRequest<RecordBindingModel, bool>("api/Record/SaveStoragesLoad", new RecordBindingModel
+                APIClient.PostRequest<RecordBindingModel, bool>("api/Record/SavePantrysLoad", new RecordBindingModel
                 {
                     FileName = path
                 });
