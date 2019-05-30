@@ -126,6 +126,7 @@
     <Compile Include="Controllers\HabitueController.cs" />
     <Compile Include="Controllers\IngredientController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\MessageInfoController.cs" />
     <Compile Include="Controllers\PantryController.cs" />
     <Compile Include="Controllers\RecordController.cs" />
     <Compile Include="Global.asax.cs">

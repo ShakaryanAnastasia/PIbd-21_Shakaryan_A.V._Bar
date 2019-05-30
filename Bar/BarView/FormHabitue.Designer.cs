@@ -32,11 +32,17 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.textBoxFIO = new System.Windows.Forms.TextBox();
             this.labelFIO = new System.Windows.Forms.Label();
+            this.labelMail = new System.Windows.Forms.Label();
+            this.textBoxMail = new System.Windows.Forms.TextBox();
+            this.groupBox = new System.Windows.Forms.GroupBox();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.groupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(265, 80);
+            this.buttonCancel.Location = new System.Drawing.Point(577, 463);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(112, 25);
             this.buttonCancel.TabIndex = 7;
@@ -46,7 +52,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(127, 80);
+            this.buttonSave.Location = new System.Drawing.Point(431, 462);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(114, 26);
             this.buttonSave.TabIndex = 6;
@@ -58,7 +64,7 @@
             // 
             this.textBoxFIO.Location = new System.Drawing.Point(90, 35);
             this.textBoxFIO.Name = "textBoxFIO";
-            this.textBoxFIO.Size = new System.Drawing.Size(317, 22);
+            this.textBoxFIO.Size = new System.Drawing.Size(276, 22);
             this.textBoxFIO.TabIndex = 5;
             // 
             // labelFIO
@@ -70,11 +76,49 @@
             this.labelFIO.TabIndex = 4;
             this.labelFIO.Text = "ФИО";
             // 
+            // labelMail
+            // 
+            this.labelMail.AutoSize = true;
+            this.labelMail.Location = new System.Drawing.Point(388, 35);
+            this.labelMail.Name = "labelMail";
+            this.labelMail.Size = new System.Drawing.Size(53, 17);
+            this.labelMail.TabIndex = 8;
+            this.labelMail.Text = "Почта:";
+            // 
+            // textBoxMail
+            // 
+            this.textBoxMail.Location = new System.Drawing.Point(447, 33);
+            this.textBoxMail.Name = "textBoxMail";
+            this.textBoxMail.Size = new System.Drawing.Size(242, 22);
+            this.textBoxMail.TabIndex = 9;
+            // 
+            // groupBox
+            // 
+            this.groupBox.Controls.Add(this.dataGridView);
+            this.groupBox.Location = new System.Drawing.Point(31, 83);
+            this.groupBox.Name = "groupBox";
+            this.groupBox.Size = new System.Drawing.Size(642, 344);
+            this.groupBox.TabIndex = 10;
+            this.groupBox.TabStop = false;
+            this.groupBox.Text = "Письма";
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Location = new System.Drawing.Point(20, 21);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.RowTemplate.Height = 24;
+            this.dataGridView.Size = new System.Drawing.Size(601, 305);
+            this.dataGridView.TabIndex = 0;
+            // 
             // FormHabitue
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(441, 141);
+            this.ClientSize = new System.Drawing.Size(701, 500);
+            this.Controls.Add(this.groupBox);
+            this.Controls.Add(this.textBoxMail);
+            this.Controls.Add(this.labelMail);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxFIO);
@@ -82,6 +126,8 @@
             this.Name = "FormHabitue";
             this.Text = "Завсегдатай";
             this.Load += new System.EventHandler(this.FormHabitue_Load);
+            this.groupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -93,5 +139,9 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.TextBox textBoxFIO;
         private System.Windows.Forms.Label labelFIO;
+        private System.Windows.Forms.Label labelMail;
+        private System.Windows.Forms.TextBox textBoxMail;
+        private System.Windows.Forms.GroupBox groupBox;
+        private System.Windows.Forms.DataGridView dataGridView;
     }
 }

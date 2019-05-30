@@ -23,7 +23,8 @@ namespace BarServiceImplementDataBase.Implementations
             HabitueViewModel
             {
                 Id = rec.Id,
-                HabitueFIO = rec.HabitueFIO
+                HabitueFIO = rec.HabitueFIO,
+                Mail = rec.Mail
             })
             .ToList();
             return result;
@@ -36,7 +37,18 @@ namespace BarServiceImplementDataBase.Implementations
                 return new HabitueViewModel
                 {
                     Id = element.Id,
-                    HabitueFIO = element.HabitueFIO
+                    HabitueFIO = element.HabitueFIO,
+                    Mail = element.Mail,
+                    Messages = context.MessageInfos
+.Where(recM => recM.HabitueId == element.Id)
+.Select(recM => new MessageInfoViewModel
+{
+    MessageId = recM.MessageId,
+    DateDelivery = recM.DateDelivery,
+    Subject = recM.Subject,
+    Body = recM.Body
+})
+.ToList()
                 };
                 
             }
@@ -70,6 +82,7 @@ namespace BarServiceImplementDataBase.Implementations
                 throw new Exception("Элемент не найден");
             }
             element.HabitueFIO = model.HabitueFIO;
+            element.Mail = model.Mail;
             context.SaveChanges();
         }
         public void DelElement(int id)
