@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace BarServiceImplementDataBase
 {
-    public class BarDbContext : DbContext
+    public class BarWebDbContext : DbContext
     {
 
-        public BarDbContext() : base("BarDatabase")
+        public BarWebDbContext() : base("BarWebDbContext")
         {
             //настройки конфигурации для entity
             Configuration.ProxyCreationEnabled = false;

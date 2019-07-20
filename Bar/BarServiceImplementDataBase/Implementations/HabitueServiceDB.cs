@@ -12,10 +12,14 @@ namespace BarServiceImplementDataBase.Implementations
 {
     public class HabitueServiceDB : IHabitueService
     {
-        private BarDbContext context;
-        public HabitueServiceDB(BarDbContext context)
+        private BarWebDbContext context;
+        public HabitueServiceDB(BarWebDbContext context)
         {
             this.context = context;
+        }
+        public HabitueServiceDB()
+        {
+            this.context = new BarWebDbContext();
         }
         public List<HabitueViewModel> GetList()
         {

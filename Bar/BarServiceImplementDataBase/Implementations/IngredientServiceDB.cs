@@ -12,10 +12,14 @@ namespace BarServiceImplementDataBase.Implementations
 {
     public class IngredientServiceDB : IIngredientService
     {
-        private BarDbContext context;
-        public IngredientServiceDB(BarDbContext context)
+        private BarWebDbContext context;
+        public IngredientServiceDB(BarWebDbContext context)
         {
             this.context = context;
+        }
+        public IngredientServiceDB()
+        {
+            this.context = new BarWebDbContext();
         }
         public List<IngredientViewModel> GetList()
         {
