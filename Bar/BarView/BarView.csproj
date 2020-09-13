@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1F4429EA-4E3E-4F07-B0EE-B0B852C342DB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BarView</RootNamespace>
+    <AssemblyName>BarView</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=4.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.9.4\lib\net46\Unity.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.9.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.9.4\lib\net46\Unity.Container.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormCocktail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCocktail.Designer.cs">
+      <DependentUpon>FormCocktail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCocktailIngredient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCocktailIngredient.Designer.cs">
+      <DependentUpon>FormCocktailIngredient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCocktails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCocktails.Designer.cs">
+      <DependentUpon>FormCocktails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormIngredient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormIngredient.Designer.cs">
+      <DependentUpon>FormIngredient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormIngredients.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormIngredients.Designer.cs">
+      <DependentUpon>FormIngredients.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCreateBooking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCreateBooking.Designer.cs">
+      <DependentUpon>FormCreateBooking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormHabitue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormHabitue.Designer.cs">
+      <DependentUpon>FormHabitue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormHabitues.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormHabitues.Designer.cs">
+      <DependentUpon>FormHabitues.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormCocktail.resx">
+      <DependentUpon>FormCocktail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCocktailIngredient.resx">
+      <DependentUpon>FormCocktailIngredient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCocktails.resx">
+      <DependentUpon>FormCocktails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormIngredient.resx">
+      <DependentUpon>FormIngredient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormIngredients.resx">
+      <DependentUpon>FormIngredients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCreateBooking.resx">
+      <DependentUpon>FormCreateBooking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormHabitue.resx">
+      <DependentUpon>FormHabitue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormHabitues.resx">
+      <DependentUpon>FormHabitues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\BarServiceDAL.ViewModels.BookingViewModel.datasource" />
+    <None Include="Properties\DataSources\BarServiceDAL.ViewModels.CocktailIngredientViewModel.datasource" />
+    <None Include="Properties\DataSources\BarServiceDAL.ViewModels.CocktailViewModel.datasource" />
+    <None Include="Properties\DataSources\BarServiceDAL.ViewModels.HabitueViewModel.datasource" />
+    <None Include="Properties\DataSources\BarServiceDAL.ViewModels.IngredientViewModel.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BarModel\BarModel.csproj">
+      <Project>{a1e46d16-5c99-413d-b8b4-0b21b0cde552}</Project>
+      <Name>BarModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BarServiceDAL\BarServiceDAL.csproj">
+      <Project>{9f024183-7e0f-4648-87b0-20999230538c}</Project>
+      <Name>BarServiceDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BarServiceImplement\BarServiceImplement.csproj">
+      <Project>{7782268a-b595-4513-b151-e33f0f8fd716}</Project>
+      <Name>BarServiceImplement</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

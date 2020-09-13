@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarModel", "BarModel\BarModel.csproj", "{A1E46D16-5C99-413D-B8B4-0B21B0CDE552}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarServiceDAL", "BarServiceDAL\BarServiceDAL.csproj", "{9F024183-7E0F-4648-87B0-20999230538C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarServiceImplement", "BarServiceImplement\BarServiceImplement.csproj", "{7782268A-B595-4513-B151-E33F0F8FD716}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarView", "BarView\BarView.csproj", "{1F4429EA-4E3E-4F07-B0EE-B0B852C342DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1E46D16-5C99-413D-B8B4-0B21B0CDE552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1E46D16-5C99-413D-B8B4-0B21B0CDE552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1E46D16-5C99-413D-B8B4-0B21B0CDE552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1E46D16-5C99-413D-B8B4-0B21B0CDE552}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F024183-7E0F-4648-87B0-20999230538C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F024183-7E0F-4648-87B0-20999230538C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F024183-7E0F-4648-87B0-20999230538C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F024183-7E0F-4648-87B0-20999230538C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7782268A-B595-4513-B151-E33F0F8FD716}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7782268A-B595-4513-B151-E33F0F8FD716}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7782268A-B595-4513-B151-E33F0F8FD716}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7782268A-B595-4513-B151-E33F0F8FD716}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F4429EA-4E3E-4F07-B0EE-B0B852C342DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F4429EA-4E3E-4F07-B0EE-B0B852C342DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F4429EA-4E3E-4F07-B0EE-B0B852C342DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F4429EA-4E3E-4F07-B0EE-B0B852C342DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
